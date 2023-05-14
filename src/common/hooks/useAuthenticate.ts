@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getCached } from '../utils';
+import { getSavedCred } from '../utils';
 
 export const useAuthenticate = () => {
   const { push, pathname } = useRouter();
@@ -8,29 +8,22 @@ export const useAuthenticate = () => {
 
   useEffect(() => {
     setLoading(true);
-    const user = getCached?.user();
+    const accessToken = getSavedCred?.accessToken();
     if (pathname === null || pathname === '/') {
-      if (user === null) {
-        push('/signup');
-      } else {
+      if (accessToken === null) {
         push('/login');
+      } else {
+        push('/board');
       }
-    } else if (
-      pathname !== '/login' &&
-      pathname !== '/signup' &&
-      user === null
-    ) {
-      push('/signup');
-    } else if (
-      (pathname === '/login' || pathname === '/signup') &&
-      user !== null
-    ) {
+    } else if (pathname !== '/login' && pathname !== '/signup' && accessToken === null) {
       push('/login');
+    } else if ((pathname === '/login' || pathname === '/signup') && accessToken !== null) {
+      push('/board');
     }
     const timeoutId = setTimeout(() => {
       setLoading(false);
       clearTimeout(timeoutId);
-    }, 3000);
+    }, 500);
   }, [pathname, push]);
   return isLoading;
 };

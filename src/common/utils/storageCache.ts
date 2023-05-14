@@ -1,7 +1,5 @@
 import { User } from "../types";
 
-
-
 const defaultUser = 'chat-user';
 const accessTokenItem = 'access-token-value'
 
