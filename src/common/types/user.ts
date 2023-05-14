@@ -15,7 +15,7 @@ export interface User {
   export interface CreateUser extends User {
     confirmPassword?: string;
   }
-  export interface DomainUser {
+  export interface UserforDomain {
     bio?: string;
     createdAt?: string;
     email?: string;
