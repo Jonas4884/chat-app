@@ -9,7 +9,7 @@ type InputProps = {
 const getInputId = (name: string) => `${name}-input`
 
 const InputClassCheck = (isError: boolean) => 
-`rounded-md border ${ 
+`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${ 
   isError ? 'border-gray-200' : 'border-red-500'}`
 export const Input = (props: InputProps) =>{
   const{label,name,validate} = props;
@@ -21,7 +21,7 @@ export const Input = (props: InputProps) =>{
   const error = errors[name]
 
   return(
-    <div>
+    <div className="relative mb-4">
       <input {
         ...register(name,{validate})
       } 

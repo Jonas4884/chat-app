@@ -24,7 +24,7 @@ export interface User {
     name?: string;
     status?: string;
   }
-  export interface UsertoREST extends DomainUser {
+  export interface UsertoREST extends UserforDomain {
     deletedAt?: string;
     token?: string;
     updatedAt?: string;

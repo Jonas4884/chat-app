@@ -1,12 +1,12 @@
-import { DomainUser } from '@/common/types';
+import { UserforDomain } from '@/common/types';
 
 type UserStore = {
-  user: DomainUser | null;
+  user: UserforDomain | null;
   errorMessage: string;
 };
 
 type UserStoreAction = {
-  setUser: (user: DomainUser) => void;
+  setUser: (user: UserforDomain) => void;
   setErrorMessage: (message: string) => void;
 };
 
