@@ -11,7 +11,7 @@ const AppBar = () => {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text  className='text-white'>
-            Signed in as: <a href="#login"  className='text-white'>hey</a>
+            Signed in as: <a href=""  className='text-white'>hey</a>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

@@ -1,6 +1,6 @@
-import { Channel, ChannelMember } from "@/common/types";
+import { Channel,ChannelMemberList } from "@/common/types";
 
-const channelBox= (message : string,member : ChannelMember)=>{
+const channelBox= (message : string,member : ChannelMemberList)=>{
     return(
         <>
             <div>
