@@ -1,10 +1,14 @@
 import { Layout } from "@/common/components";
+import AppBar from "@/common/components/channel/appBar";
+
+
 
 
 const ChatRoom = () =>{
-
+  const deed = "valur"
     return(
         <Layout>
+         <AppBar/>
             <section>
   <div className="container py-5">
 

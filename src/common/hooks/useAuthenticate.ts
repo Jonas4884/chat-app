@@ -13,12 +13,12 @@ export const useAuthenticate = () => {
       if (accessToken === null) {
         push('/login');
       } else {
-        push('/board');
+        push('/chat');
       }
     } else if (pathname !== '/login' && pathname !== '/signup' && accessToken === null) {
       push('/login');
     } else if ((pathname === '/login' || pathname === '/signup') && accessToken !== null) {
-      push('/board');
+      push('/chat');
     }
     const timeoutId = setTimeout(() => {
       setLoading(false);

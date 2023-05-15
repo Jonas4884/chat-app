@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { useAuthenticate } from '../hooks';
 
+
 type LayoutProps = {
   children: ReactNode | string;
 };
