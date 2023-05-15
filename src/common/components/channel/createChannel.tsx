@@ -1,4 +1,4 @@
-const createChannel = () => {
+export const createChannel = () => {
 
     return (
         <>

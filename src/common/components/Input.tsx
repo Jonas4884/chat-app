@@ -19,6 +19,7 @@ export const Input = (props: InputProps) =>{
     formState: {errors},
   } = useFormContext();
   const error = errors[name]
+  
 
   return(
     <div className="relative mb-4">
@@ -31,7 +32,7 @@ export const Input = (props: InputProps) =>{
       />
       {
         !!error && (
-          <span className="absolute right-O text-red-300">
+          <span className="absolute right-O text-red-400">
               {error.message as string}
           </span>
         )

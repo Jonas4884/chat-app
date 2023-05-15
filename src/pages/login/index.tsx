@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useGlobalStore } from "@/userContext";
 import { authProvider } from "@/providers/auth-provider";
+import { userSchema } from "./utils";
 
 const userSignInDefaultValues: LoginUser = {
     email: '',
@@ -34,6 +35,7 @@ const SignInPage = () => {
         };
         login()
     });
+    
     return (
         <Layout>
         <FormProvider {...form}>
@@ -42,7 +44,7 @@ const SignInPage = () => {
               <h1 className='m-8 text-5xl text-center text-black'>Login</h1>
               <form className='self-center px-8 pb-10 rounded' onSubmit={handleSubmit}>
                 <div className='mt-12 mb-1'>
-                  <Input label='Email' name='email' />
+                  <Input label='Email' name='email'/>
                   <Input label='Password' name='password' />
                 </div>
                 <div className='flex justify-end w-full'>
