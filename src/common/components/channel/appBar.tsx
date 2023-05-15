@@ -7,11 +7,11 @@ const AppBar = () => {
   return (
     <Navbar>
       <Container>
-        <Navbar.Brand href="#home" className='text-white'>Navbar with text</Navbar.Brand>
+        <Navbar.Brand href="#home" className='text-white'>SLACK</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            Signed in as: <a href="#login" className='text-white'>hey</a>
+          <Navbar.Text  className='text-white'>
+            Signed in as: <a href="#login"  className='text-white'>hey</a>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
