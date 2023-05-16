@@ -1,15 +1,15 @@
-import { User, UserforDomain } from "./user"
+import { UserforDomain } from "./user"
 
 export interface Channel  {
-    content ?: string,
-    type ?: string
+    id : number,
+    name?: string,
+    type?: string,
+    createdAt?: string,
+    updatedAt?: string,
+    ownerId: number
 }
-export interface ChannelMemberList{
-    name : UserforDomain[]
-}
-export interface ChannelMember {
-    name : UserforDomain
-}
+
+
 export interface NewChannel extends Channel{
-    members : ChannelMemberList
+    owner : UserforDomain[] 
 }
