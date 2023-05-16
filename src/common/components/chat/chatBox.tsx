@@ -3,8 +3,8 @@ import { userRequest } from "@/providers/utils";
 import { useEffect, useState } from "react";
 
 
-const chatBox = (user: User,position: string,message: string) =>{
-   
+const ChatBox = (props:any) =>{
+   const {user: User,message: string} = props
    return(
     <>
         <div>
@@ -23,4 +23,4 @@ const chatBox = (user: User,position: string,message: string) =>{
    ) 
 
 }
-export default chatBox;
+export default ChatBox;

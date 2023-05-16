@@ -1,6 +1,6 @@
-import { Layout } from "@/common/components";
+import { ChannelBox, Layout } from "@/common/components";
 import AppBar from "@/common/components/channel/appBar";
-import { Channel } from "@/common/types";
+import { Channel,NewChannel } from "@/common/types";
 import { channelProvider } from "@/providers/channel-provider";
 import { userRequest } from "@/providers/utils";
 import { log } from "console";
@@ -9,7 +9,7 @@ import { useState } from "react";
 
 
 
-const ChannelDefault: Channel[]=
+const ChannelDefault: NewChannel[]=
 
    [
     {
@@ -17,16 +17,23 @@ const ChannelDefault: Channel[]=
       name: "channelName",
       type: "private",
       ownerId: 1,
+      owner:{
+        name : "John",
+        email:"Doe"
+      }
     }
   ]
+ 
 
 
 
-
-const ChatRoom = (value: Channel[]) => {
+const ChatRoom = (value: NewChannel[]) => {
   if (value.length == 0) {
     value = ChannelDefault
   }
+ 
+ 
+  
   return (
     <Layout>
       <AppBar />
@@ -54,13 +61,19 @@ const ChatRoom = (value: Channel[]) => {
 
                         <div data-mdb-perfect-scrollbar="true" className="scroll__section">
                           <>
+                          
                           {
-                            JSON.stringify(value)
+                            value.value.map((item : NewChannel)=>{
+                              
+                               <ChannelBox channel={item}/>   
+                                           
+                             })
+                            
                           }
                           </>
 
                         </div>
-
+                          </div>
                       </div>
 
                       <div className="col-md-6 col-lg-7 col-xl-8">
@@ -191,7 +204,7 @@ const ChatRoom = (value: Channel[]) => {
             </div>
 
           </div>
-          </div>
+        
       </section>
     </Layout>
   )

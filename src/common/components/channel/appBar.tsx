@@ -12,6 +12,7 @@ const AppBar = () => {
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text  className='text-white'>
             Signed in as: <a href=""  className='text-white'>hey</a>
+            <img src="https://cdn.onlinewebfonts.com/svg/img_87594.png" alt="" />
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

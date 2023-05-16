@@ -16,5 +16,8 @@ export const authProvider = {
             return  {redirection : '/error',data,authenticate: false}
         }
 
+    },//TODO :clean storage
+    signOut : async()=>{
+
     }
 }

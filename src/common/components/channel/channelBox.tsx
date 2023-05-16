@@ -1,23 +1,22 @@
-import { Channel,ChannelMemberList } from "@/common/types";
+import { Channel, NewChannel } from "@/common/types";
+import { confStatusIcon } from "./utils/confidentiality";
 
-const channelBox= (message : string,member : ChannelMemberList)=>{
-    return(
+export const ChannelBox = (channel: NewChannel) => {
+    return (
         <>
-            <div>
-                <>
-                    {
-                       member.name.map((key,value)=>{
-                        <p key={key.id}>
-                            {key.name}
-                        </p>
-                       })
-                    }
-                </>
+         
+            <div className="row bg-danger" >
+                <div className="col-sm-6">
+                    <div className="card">
+                        <div className="card-body" key={channel.id}>
+                            <h5 className="card-title">{channel.name} . {confStatusIcon(channel.type)}</h5>
+                            <p className="card-text">{channel.owner.name}</p>
+                            <a href="#" className="btn btn-primary">Last chat be here</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                {message}
-            </div>
-        
+
         </>
     )
 }
