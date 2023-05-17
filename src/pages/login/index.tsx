@@ -6,7 +6,8 @@ import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useGlobalStore } from "@/userContext";
 import { authProvider } from "@/providers/auth-provider";
-import { userSchema } from "./utils";
+import { userSchema } from "./utils/userSchema";
+
 
 const userSignInDefaultValues: LoginUser = {
     email: '',
@@ -17,6 +18,7 @@ const SignInPage = () => {
     const form = useForm<CreateUser>({
         defaultValues: userSignInDefaultValues,
         mode: 'all',
+        
     });
     const { push } = useRouter();
     const { setUser, setErrorMessage } = useGlobalStore();

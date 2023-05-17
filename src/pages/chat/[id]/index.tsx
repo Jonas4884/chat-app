@@ -5,14 +5,11 @@ import { number } from "yup"
 const ActualChannel= (id : number)=>{
         return(
             <>
-            <ChatBox />
+            Hello world
             </>
         )
         }
-export const getServerSideProps =async (context) => {
-    const res = await channelProvider.getChanelById(id) 
-    return {
-        props:{res}
-    }
+         const getServerSideProps =async (context) => {
+    
 }
 export default ActualChannel;

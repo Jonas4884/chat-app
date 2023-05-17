@@ -1,6 +1,6 @@
 import { CreateUser, LoginUser, UserforDomain, UsertoREST } from "@/common/types";
 import { userRequest } from "./utils";
-import { cache } from "@/common/utils";
+import { cache, clearCredential } from "@/common/utils";
 
 export const authProvider = {
     signUp : async ( user : CreateUser) => userRequest().post('/users',user),
@@ -18,6 +18,6 @@ export const authProvider = {
 
     },//TODO :clean storage
     signOut : async()=>{
-
+        clearCredential.clearData()
     }
 }

@@ -20,6 +20,9 @@ export const getSavedCred = {
     user: ()=> getJson<User>(defaultUser),
     accessToken:()=> getKeyAsString(accessTokenItem)
 }
+export const clearCredential = {
+   clearData : ()=> localStorage.clear()
+}
 export const cache = {
     user: (user: User) => saveJson(defaultUser,user),
     accessToken:(accessToken = '')=> setValueStored(accessTokenItem,accessToken)
