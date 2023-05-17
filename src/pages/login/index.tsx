@@ -4,112 +4,61 @@ import { CreateUser, LoginUser } from '@/common/types';
 import { cache } from '@/common/utils';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useGlobalStore } from "@/userContext";
+import { authProvider } from "@/providers/auth-provider";
+import { userSchema } from "./utils/userSchema";
+
 
 const userSignInDefaultValues: LoginUser = {
     email: '',
     password: '',
-  };
-  
-  const SignInPage = () => {
+};
+
+const SignInPage = () => {
     const form = useForm<CreateUser>({
-      defaultValues: userSignInDefaultValues,
-      mode: 'all',
+        defaultValues: userSignInDefaultValues,
+        mode: 'all',
+        
     });
     const { push } = useRouter();
-  
+    const { setUser, setErrorMessage } = useGlobalStore();
+
     const handleSubmit = form.handleSubmit((createUser: CreateUser) => {
-      const user = { ...createUser };
-      delete user.confirmPassword;
-      cache.user(user);
-      push('/chat');
+        const user = { ...createUser };
+        delete user.confirmPassword;
+        const login = async () => {
+            const { redirection, data, authenticate } = await authProvider.signIn(user);
+            if (authenticate) {
+                setUser(data);
+            } else {
+                setErrorMessage(data);
+            }
+            push(redirection)
+        };
+        login()
     });
+    
     return (
-        <>
-            <section className="vh-100">
-                <div className="container-fluid h-custom">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-md-9 col-lg-6 col-xl-5">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-                                className="img-fluid" alt="Sample image" />
-                        </div>
-                        <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                            <form onSubmit={handleSubmit}>
-                                <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                                    <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-                                    <button type="button" className="btn btn-primary btn-floating mx-1">
-                                        <i className="fab fa-facebook-f"></i>
-                                    </button>
-
-                                    <button type="button" className="btn btn-primary btn-floating mx-1">
-                                        <i className="fab fa-twitter"></i>
-                                    </button>
-
-                                    <button type="button" className="btn btn-primary btn-floating mx-1">
-                                        <i className="fab fa-linkedin-in"></i>
-                                    </button>
-                                </div>
-
-                                <div className="divider d-flex align-items-center my-4">
-                                    <p className="text-center fw-bold mx-3 mb-0">Or</p>
-                                </div>
-
-
-                                <div className="form-outline mb-4">
-                                    <Input label='Email' name='email' />
-                                </div>
-
-
-                                <div className="form-outline mb-3">
-                                    <Input label='Password' name='password' />
-                                </div>
-
-
-
-                                <div className="d-flex justify-content-between align-items-center">
-
-                                    <div className="form-check mb-0">
-                                        <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                                        <label className="form-check-label" htmlFor="form2Example3">
-                                            Remember me
-                                        </label>
-                                    </div>
-                                    <a href="#!" className="text-body">Forgot password?</a>
-                                </div>
-
-                                <div className="text-center text-lg-start mt-4 pt-2">
-                                    <button type="button" className="btn btn-primary btn-lg"
-                                    >Login</button>
-                                    <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                                        className="link-danger">Register</a></p>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
+        <Layout>
+        <FormProvider {...form}>
+          <div className='flex justify-center items-center w-screen h-screen bg-white'>
+            <div className='flex flex-col mx-2 w-screen rounded-2xl border-none item-center md:w-1/2 lg:w-2/5 2xl:1/4'>
+              <h1 className='m-8 text-5xl text-center text-black'>Login</h1>
+              <form className='self-center px-8 pb-10 rounded' onSubmit={handleSubmit}>
+                <div className='mt-12 mb-1'>
+                  <Input label='Email' name='email'/>
+                  <Input label='Password' name='password' />
                 </div>
-                <div
-                    className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-
-                    <div className="text-white mb-3 mb-md-0">
-
-                    </div>
-                    <div>
-                        <a href="#!" className="text-white me-4">
-                            <i className="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#!" className="text-white me-4">
-                            <i className="fab fa-twitter"></i>
-                        </a>
-                        <a href="#!" className="text-white me-4">
-                            <i className="fab fa-google"></i>
-                        </a>
-                        <a href="#!" className="text-white">
-                            <i className="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
+                <div className='flex justify-end w-full'>
+                  <button type='submit' className='px-6 py-2 text-dark bg-blue-400 rounded hover:bg-blue-500'>
+                    Send
+                  </button>
                 </div>
-            </section>
-        </>
+              </form>
+            </div>
+          </div>
+        </FormProvider>
+      </Layout>
     )
 }
 

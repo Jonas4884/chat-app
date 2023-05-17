@@ -15,4 +15,17 @@ export interface User {
   export interface CreateUser extends User {
     confirmPassword?: string;
   }
-  
+  export interface UserforDomain {
+    bio?: string;
+    createdAt?: string;
+    email?: string;
+    googleId?: string;
+    id?: number;
+    name?: string;
+    status?: string;
+  }
+  export interface UsertoREST extends UserforDomain {
+    deletedAt?: string;
+    token?: string;
+    updatedAt?: string;
+  }
