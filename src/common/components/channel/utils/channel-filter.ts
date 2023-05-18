@@ -1,9 +1,9 @@
-import { Channel } from "@/common/types";
+import { RestChannel } from "@/common/types";
 
-export const customChannelTeamFilter = (channels : Channel[]) => {
-    return channels.filter((channel) => channel.type === 'private');
+export const customChannelTeamFilter = (channels : RestChannel[]) => { 
+    return channels?.filter((channel) => channel.type === 'private');
 }
 
-export const customChannelDirectFilter = (channels : Channel[]) => {
-    return channels.filter((channel) => channel.type === 'public');
+export const customChannelDirectFilter = (channels : RestChannel[]) => {
+    return channels?.filter((channel) => channel.type === 'public');
 }

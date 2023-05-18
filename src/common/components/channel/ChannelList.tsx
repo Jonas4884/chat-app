@@ -1,12 +1,14 @@
-import { NewChannel, UserforDomain } from "@/common/types";
+import { Channel, RestChannel, UserforDomain } from "@/common/types";
 import { PropsWithChildren } from "react";
-import { customChannelTeamFilter } from "./utils/channel-filter";
+import { customChannelDirectFilter, customChannelTeamFilter } from "./utils/channel-filter";
 
 import { ChannelBox } from "./ChannelBox";
 import { TeamChannelList } from "./TeamChannelList";
 import { CreateChannel } from "./CreateChannel";
+import { GetServerSideProps } from "next";
+import { channelProvider } from "@/providers";
 
-const ChannelDefault: NewChannel[]=
+const ChannelDefault: RestChannel[]=
 
    [
     {
@@ -21,9 +23,13 @@ const ChannelDefault: NewChannel[]=
       }
     }
   ]
-export const ChannelListContainer = () => {
-    //const publicChannel = customChannelTeamFilter(channels)
+  type RestChannelType = {
+    data : RestChannel[]
+  }
 
+export const ChannelListContainer = (id : number,{data}:RestChannelType) => {
+    const publicChannel = customChannelTeamFilter(data)
+    const privateChannel = customChannelDirectFilter(data)
     return (
 
         <div className="channel-list__list__wrapper">
@@ -36,8 +42,12 @@ export const ChannelListContainer = () => {
                 }
 
             </>
-
         </div>
-
     )
+}
+export const getServerSideProps : GetServerSideProps<{data : RestChannelType}> =async (context) => {
+  const data = await channelProvider.getChanelById(id as number)
+    return{
+      props : {data}
+    }
 }

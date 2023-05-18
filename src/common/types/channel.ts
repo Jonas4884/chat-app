@@ -9,6 +9,11 @@ export interface Channel  {
     ownerId: number
 }
 
-export interface NewChannel extends Channel{
+export interface RestChannel extends Channel{
     owner : UserforDomain
+}
+export interface ChannelforDomain {
+    name ?: string,
+    type?: string,
+    members?: string
 }

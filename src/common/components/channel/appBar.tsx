@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import { ToastContainer } from 'react-toastify';
 type userNameType = {
   name :string
 }
@@ -24,7 +25,21 @@ const AppBar = ({name}: userNameType) => {
             <button>
             <img src="https://cdn.onlinewebfonts.com/svg/img_87594.png" alt="" width={50} height={50} color='white'  className='bg-white rounded mx-4 py-2 px-2' onClick={()=>logOut()} />
             </button>
-           
+           <div className='toast-container'>
+           <ToastContainer
+            position="top-left"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+           </div>
+            
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

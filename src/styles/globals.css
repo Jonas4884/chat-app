@@ -94,13 +94,13 @@ body {
   background: #20262E
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.chat-box__back{
+  backdrop-filter: blur(13px) saturate(102%);
+  -webkit-backdrop-filter: blur(13px) saturate(102%);
+  background-color: rgba(248, 231, 28, 0.42);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
 }
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.chat{
+  width: 100%;
 }

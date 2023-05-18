@@ -3,14 +3,16 @@ import { CreateChannel, Layout, MainLayout} from "@/common/components";
 import AppBar from "@/common/components/channel/AppBar";
 import { ChannelListContainer } from "@/common/components/channel/ChannelList";
 
-import { Channel,NewChannel } from "@/common/types";
-import { channelProvider } from "@/providers/channel-provider";
+import { Channel,RestChannel } from "@/common/types";
+import { channelProvider } from "@/providers";
+
 import { userRequest } from "@/providers/utils";
 
 import { GetServerSideProps } from "next";
+import { ToastContainer } from "react-toastify";
 
 
-const ChannelDefault: NewChannel[]=
+const ChannelDefault: RestChannel[]=
 
    [
     {
@@ -28,7 +30,7 @@ const ChannelDefault: NewChannel[]=
 
 
 
-const ChatRoom = (value: NewChannel[]) => {
+const ChatRoom = (value: RestChannel[]) => {
   if (value.length == 0) {
     value = ChannelDefault
   }
@@ -39,6 +41,7 @@ const ChatRoom = (value: NewChannel[]) => {
     <Layout>
       <AppBar name="john" />
         <MainLayout LeftPanel={<ChannelListContainer/>} RightPanel={<CreateChannel/>} MainPanel={<ChannelListContainer/>}/>
+        
     </Layout>
   )
 }

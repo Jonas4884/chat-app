@@ -1,10 +1,10 @@
-import { Channel,  NewChannel } from "@/common/types";
+import { Channel,  ChannelforDomain,  RestChannel } from "@/common/types";
 import { userRequest } from "./utils";
 
 export const channelProvider = {
     getAllChannel : async() =>userRequest().get("/channels"),
     getChanelById : async(id: number)=> userRequest().get(`/channel?channel=${id}`),
-    addMembertoChannel : async(member: NewChannel,id: string) =>{
+    addMembertoChannel : async(member: RestChannel,id: string) =>{
         try{
              const data = userRequest().post(`/channels?channelId=${id}/members`,member)
                 return {data}
@@ -15,7 +15,7 @@ export const channelProvider = {
             return  {status,data}
         }
     },
-    createNewChannel:async (channel : NewChannel) => {
+    createNewChannel:async (channel : ChannelforDomain) => {
         try{
             const data = userRequest().post(`/channel`,channel)
             return data

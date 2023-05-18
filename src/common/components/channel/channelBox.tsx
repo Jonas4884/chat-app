@@ -1,4 +1,4 @@
-import { Channel, NewChannel } from "@/common/types";
+import { Channel, RestChannel } from "@/common/types";
 import { confStatusIcon } from "./utils/confidentiality";
 
 type ChannelBoxType = {
