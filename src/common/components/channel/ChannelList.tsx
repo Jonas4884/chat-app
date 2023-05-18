@@ -42,7 +42,7 @@ export const ChannelListContainer = (id : number,{data}:RestChannelType) => {
                 }
                 
             </>
-            <hr />
+         
             <>
             {
                    privateChannel ?? ChannelDefault.map((key,item) => { 
