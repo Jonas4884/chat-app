@@ -2,6 +2,7 @@ import {ElementType, PropsWithChildren, ReactElement, ReactNode} from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { ChannelListContainer } from "./ChannelList";
 import { ChatBox } from "../chat";
+import { ChannelInfo } from "../banner";
 
 
 export type MainLayoutProps = PropsWithChildren< {
@@ -22,7 +23,9 @@ export const MainLayout = ({MainPanel,LeftPanel,RightPanel}: MainLayoutProps) =>
         <Col  xs={6}>
             <ChatBox/>
         </Col>
-        <Col></Col>
+        <Col>
+          <ChannelInfo/>
+        </Col>
       </Row>
     </Container>
   );
