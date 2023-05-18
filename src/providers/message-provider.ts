@@ -1,3 +1,5 @@
-const chatMessageProvider = {
-    SendMessage
+export const chatMessageProvider = {
+    SendMessage : async()=>{
+        
+    }
 }
