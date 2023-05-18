@@ -6,7 +6,7 @@ export const channelProvider = {
     getChanelById : async(id: number)=> userRequest().get(`/channel?channel=${id}`),
     addMembertoChannel : async(member: NewChannel,id: string) =>{
         try{
-             const data = userRequest().post(`channels?channelId=${id}/members`,member)
+             const data = userRequest().post(`/channels?channelId=${id}/members`,member)
                 return {data}
         }catch (error){
             const {
@@ -17,7 +17,7 @@ export const channelProvider = {
     },
     createNewChannel:async (channel : NewChannel) => {
         try{
-            const data = userRequest().post(`channel`,channel)
+            const data = userRequest().post(`/channel`,channel)
             return data
         }catch(error){
             const {

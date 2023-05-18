@@ -1,11 +1,11 @@
-import {ElementType, PropsWithChildren, ReactElement} from "react";
+import {ElementType, PropsWithChildren, ReactElement, ReactNode} from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { ChannelListContainer } from "./ChannelList";
 
 export type MainLayoutProps = PropsWithChildren< {
-  MainPanel: ElementType;
-  LeftPanel?: ReactElement;
-  RightPanel?: ElementType;
+  MainPanel: ReactNode;
+  LeftPanel?: ReactNode;
+  RightPanel?: ReactNode;
 }>;
 
 export const MainLayout = ({MainPanel,LeftPanel,RightPanel}: MainLayoutProps) => {

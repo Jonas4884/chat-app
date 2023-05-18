@@ -1,20 +1,16 @@
-import { Channel } from "@/common/types";
+import { Channel, NewChannel } from "@/common/types";
 import { ReactElement } from "react"
 
-type ChannelList ={
-    key : string,
-    type?: string,
-    channel : Channel
-}
-export const TeamChannelList = ({key,type, channel}:ChannelList) => {
+
+export const TeamChannelList = (props:NewChannel) => {
     return (
-        <div className="team-channel-list" key={key}>
+        <div className="team-channel-list" key={props.id}>
             <div className="team-channel-list__header">
                 <p className="team-channel-list__header__title">
                     <p>
                     Hello
                     </p>
-                    {type === 'team' ? 'Public' : 'Private'}
+                    {props.type === 'team' ? 'Public' : 'Private'}
                 </p>
                 <>
                 {
@@ -24,8 +20,8 @@ export const TeamChannelList = ({key,type, channel}:ChannelList) => {
                 </>
 
             </div>
-            <div key={channel.id}>
-                <>                `# ${channel.name}`            </>
+            <div key={props.id}>
+                <>                `# ${props.name}`            </>
             </div>
         </div>
     )

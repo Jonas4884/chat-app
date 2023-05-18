@@ -1,14 +1,13 @@
-import { Layout, MainLayout } from "@/common/components";
+import { Layout, MainLayout} from "@/common/components";
+
 import AppBar from "@/common/components/channel/AppBar";
 import { ChannelListContainer } from "@/common/components/channel/ChannelList";
 import CreateChannel from "@/common/components/channel/CreateChannel";
 import { Channel,NewChannel } from "@/common/types";
 import { channelProvider } from "@/providers/channel-provider";
 import { userRequest } from "@/providers/utils";
-import { log } from "console";
-import { GetServerSideProps } from "next";
-import { useState } from "react";
 
+import { GetServerSideProps } from "next";
 
 
 const ChannelDefault: NewChannel[]=
@@ -38,7 +37,7 @@ const ChatRoom = (value: NewChannel[]) => {
   
   return (
     <Layout>
-      <AppBar />
+      <AppBar name="john" />
         <MainLayout LeftPanel={<ChannelListContainer/>} RightPanel={CreateChannel} MainPanel={ChannelListContainer}/>
     </Layout>
   )

@@ -2,22 +2,24 @@ import { User } from "@/common/types";
 import { userRequest } from "@/providers/utils";
 import { useEffect, useState } from "react";
 
+type Chat ={
+    user: User,message: string
+}
 
-const ChatBox = (props:any) =>{
-   const {user: User,message: string} = props
+const ChatBox = (props:Chat) =>{
    return(
     <>
         <div>
-            <div>
+            <>
                 {
-                    user?.userName
+                    props?.user
                 }
-            </div>
-            <div>
+            </>
+            <>
                 {
-                    message
+                    props?.message
                 }
-            </div>
+            </>
         </div>
     </>
    ) 

@@ -1,4 +1,4 @@
-import { Channel, UserforDomain } from "@/common/types";
+import { NewChannel, UserforDomain } from "@/common/types";
 import { PropsWithChildren } from "react";
 import { customChannelTeamFilter } from "./utils/channel-filter";
 
@@ -6,7 +6,7 @@ import { ChannelBox } from "./ChannelBox";
 import { TeamChannelList } from "./TeamChannelList";
 import { CreateChannel } from "./CreateChannel";
 
-const ChannelDefault: Channel[]=
+const ChannelDefault: NewChannel[]=
 
    [
     {
@@ -14,6 +14,11 @@ const ChannelDefault: Channel[]=
       name: "channelName",
       type: "public",
       ownerId: 1,
+      owner:{
+        id: 1,
+                name: "Elin Mask",
+                email: "elin.mask@test.com"
+      }
     }
   ]
 export const ChannelListContainer = () => {
@@ -26,8 +31,7 @@ export const ChannelListContainer = () => {
             <>
                 {
                     ChannelDefault.map((key,item) => { 
-                      <ChannelBox channel={key}/> 
-                       
+                      <TeamChannelList id={key.id} type={key.type} name={key.name} owner={key.owner} ownerId={key.ownerId}/>
                     })
                 }
 
