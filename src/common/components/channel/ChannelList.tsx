@@ -36,17 +36,25 @@ export const ChannelListContainer = (id : number,{data}:RestChannelType) => {
             <CreateChannel/>
             <>
                 {
-                    ChannelDefault.map((key,item) => { 
+                   publicChannel ?? ChannelDefault.map((key,item) => { 
                       <TeamChannelList id={key.id} type={key.type} name={key.name} owner={key.owner} ownerId={key.ownerId}/>
                     })
                 }
-
+                
+            </>
+            <hr />
+            <>
+            {
+                   privateChannel ?? ChannelDefault.map((key,item) => { 
+                      <TeamChannelList id={key.id} type={key.type} name={key.name} owner={key.owner} ownerId={key.ownerId}/>
+                    })
+                }
             </>
         </div>
     )
 }
 export const getServerSideProps : GetServerSideProps<{data : RestChannelType}> =async (context) => {
-  const data = await channelProvider.getChanelById(id as number)
+  const data = await channelProvider.getAllChannel()
     return{
       props : {data}
     }
