@@ -5,7 +5,6 @@
 
 :root {
     --primary-color: #f2f5fa;
-    
   }
   
 .channel-list__list__wrapper {
@@ -41,4 +40,9 @@
     height: 16px;
     color: rgba(255, 255, 255, 0.66);
     margin-bottom: 10px;
+  }
+  #add-channel__title{
+    color: red !important;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 900px;
   }

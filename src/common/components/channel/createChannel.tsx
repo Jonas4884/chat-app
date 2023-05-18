@@ -18,7 +18,11 @@ export const CreateChannel = ()=> {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title  id="add-channel__title" >
+            {<p className="text-slate-400 hover:text-sky-400">
+            Adding Channel
+            </p>}
+            </Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form>
@@ -31,9 +35,7 @@ export const CreateChannel = ()=> {
         <Form.Label>Add member</Form.Label>
         <Form.Control type="text" placeholder="Member name" />
       </Form.Group>
-      <Button variant="outline-primary" type="submit">
-        Submit
-      </Button>
+     
     </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -41,7 +43,7 @@ export const CreateChannel = ()=> {
             Close
           </Button>
           <Button variant="info" onClick={handleClose}>
-            Save Changes
+            Add new Channel
           </Button>
         </Modal.Footer>
       </Modal>

@@ -1,8 +1,8 @@
-import { Layout, MainLayout} from "@/common/components";
+import { CreateChannel, Layout, MainLayout} from "@/common/components";
 
 import AppBar from "@/common/components/channel/AppBar";
 import { ChannelListContainer } from "@/common/components/channel/ChannelList";
-import CreateChannel from "@/common/components/channel/CreateChannel";
+
 import { Channel,NewChannel } from "@/common/types";
 import { channelProvider } from "@/providers/channel-provider";
 import { userRequest } from "@/providers/utils";
@@ -38,7 +38,7 @@ const ChatRoom = (value: NewChannel[]) => {
   return (
     <Layout>
       <AppBar name="john" />
-        <MainLayout LeftPanel={<ChannelListContainer/>} RightPanel={CreateChannel} MainPanel={ChannelListContainer}/>
+        <MainLayout LeftPanel={<ChannelListContainer/>} RightPanel={<CreateChannel/>} MainPanel={<ChannelListContainer/>}/>
     </Layout>
   )
 }
