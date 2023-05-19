@@ -7,8 +7,12 @@ import {
   MDBCardFooter,
   MDBInputGroup,
 } from "mdb-react-ui-kit";
+import { chatMessage } from "@/common/types";
 
-export const ChatBox = ()=> {
+type ChatBoxProps = {
+  data : chatMessage[]
+}
+export const ChatBox = ({data} : ChatBoxProps)=> {
   return (
     <div  className="chat">
       <div className="d-flex justify-content-center">
