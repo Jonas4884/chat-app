@@ -1,6 +1,6 @@
 export interface chatMessage {
     senderid : number,
     recepientid: number,
-    channelid?: string,
+    channelid?: number,
     content: string
 }
