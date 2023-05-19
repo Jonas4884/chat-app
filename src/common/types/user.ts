@@ -32,5 +32,5 @@ export interface User {
   export interface ChatUser {
     id : number,
     name : string,
-    email : string
+    email ?: string
   }

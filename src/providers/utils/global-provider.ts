@@ -18,7 +18,7 @@ export const userLogRequest = () => {
 export const userRequest = () => {
   return axios.create({
     headers:{
-      Authorization: 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJlbGluLm1hc2tAdGVzdC5jb20iLCJpYXQiOjE2ODQyMjI2NjJ9.7VLW9UqoX6wX24CSF5LmfUsmBnMpw42urZ7HyiZu1Zw'
+      Authorization: `bearer ${getSavedCred.accessToken()}`
     },
     baseURL: BASE_URL });
 };

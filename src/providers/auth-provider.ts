@@ -6,8 +6,9 @@ export const authProvider = {
     signUp : async ( user : CreateUser) => userRequest().post('/users',user),
     signIn: async( user : LoginUser) =>{
         try {
-            const userToRest: UsertoREST = (await userRequest().post('/users/login', user)).data;
-            cache.accessToken(userToRest.token);
+            const userToRest: UsertoREST = (await userRequest().post('/users/login', user)).data.user;
+            cache.accessToken(userToRest?.token);
+             cache.accessUser(userToRest.name)
             return {redirection: '/chat',data : userToRest as UserforDomain,authenticate: true};
         } catch (error) {
             const {

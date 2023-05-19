@@ -7,14 +7,36 @@ import {
   MDBCardFooter,
   MDBInputGroup,
 } from "mdb-react-ui-kit";
-import { chatMessage } from "@/common/types";
+import { RestChatMessage, chatMessage } from "@/common/types";
 
 type ChatBoxProps = {
-  data : chatMessage[]
+  data: RestChatMessage[]
 }
-export const ChatBox = ({data} : ChatBoxProps)=> {
+type RestChat = {
+  data: RestChatMessage
+}
+
+const DefaultChatMessage : RestChatMessage[] = [
+  {
+    id:1,
+    content:'',
+    recepientid:1,
+    senderid:1,
+    channelid:1,
+    createedAt:"now",
+    sender : {
+      id : 1,
+      name : "john"
+    }
+}]
+const MessagePosition = ({ data }: RestChat) => {
+  return `d-flex flex-row justify-content-${data.senderid !== data.sender?.id ? 'start' : 'end'}`
+}
+
+export const ChatBox = ({ data }: ChatBoxProps) => {
+ 
   return (
-    <div  className="chat">
+    <div className="chat">
       <div className="d-flex justify-content-center">
         <div >
           <div>
@@ -22,7 +44,7 @@ export const ChatBox = ({data} : ChatBoxProps)=> {
               className="d-flex justify-content-between align-items-center p-3 chat-box__back"
               style={{ borderTop: "4px solid #ffa900" }}
             >
-              <h5 className="mb-0 text-white">Chat messages</h5>
+              <h5 className="mb-0 text-white">Chat messages 2</h5>
               <div className="d-flex flex-row align-items-center">
                 <span className="badge bg-warning me-3">20</span>
                 <MDBIcon
@@ -45,86 +67,41 @@ export const ChatBox = ({data} : ChatBoxProps)=> {
                 />
               </div>
             </div>
-           
-              <MDBCardBody>
-                <div className="d-flex justify-content-between">
-                  <p className="small mb-1">Timona Siera</p>
-                  <p className="small mb-1 text-muted">23 Jan 2:00 pm</p>
-                </div>
-                <div className="d-flex flex-row justify-content-start">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
-                    alt="avatar 1"
-                    style={{ width: "45px", height: "100%" }}
-                  />
-                  <div>
-                    <p
-                      className="small p-2 ms-3 mb-3 rounded-3"
-                      style={{ backgroundColor: "#f5f6f7" }}
-                    >
-                      For what reason would it be advisable for me to think
-                      about business content?
-                    </p>
-                  </div>
-                </div>
 
-                <div className="d-flex justify-content-between">
-                  <p className="small mb-1 text-muted">23 Jan 2:05 pm</p>
-                  <p className="small mb-1">Johny Bullock</p>
-                </div>
-                <div className="d-flex flex-row justify-content-end mb-4 pt-1">
-                  <div>
-                    <p className="small p-2 me-3 mb-3 text-white rounded-3 bg-warning">
-                      Thank you for your believe in our supports
-                    </p>
-                  </div>
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                    alt="avatar 1"
-                    style={{ width: "45px", height: "100%" }}
-                  />
-                </div>
+            <MDBCardBody>
+             {
+              typeof data !== "undefined" ?
+               data.map((key, value) => {
+                  return (
+                    <>
+                      <div className="d-flex justify-content-between" key={key.id}>
+                        <p className="small mb-1">{key.sender?.name}</p>
+                        <p className="small mb-1 text-muted">23 Jan 2:00 pm</p>
+                      </div>
+                      <div className="d-flex flex-row justify-content-start">
+                        <img
+                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
+                          alt="avatar 1"
+                          style={{ width: "45px", height: "100%" }}
+                        />
+                        <div>
+                          <p
+                            className="small p-2 ms-3 mb-3 rounded-3"
+                            style={{ backgroundColor: "#f5f6f7" }}
+                          >
+                            {key.content}
+                          </p>
+                        </div>
+                      </div>
+                    </>
+                  )
+                })
+                : <p>NO correspondant Chat</p>
+              }
+              
 
-                <div className="d-flex justify-content-between">
-                  <p className="small mb-1">Timona Siera</p>
-                  <p className="small mb-1 text-muted">23 Jan 5:37 pm</p>
-                </div>
-                <div className="d-flex flex-row justify-content-start">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
-                    alt="avatar 1"
-                    style={{ width: "45px", height: "100%" }}
-                  />
-                  <div>
-                    <p
-                      className="small p-2 ms-3 mb-3 rounded-3"
-                      style={{ backgroundColor: "#f5f6f7" }}
-                    >
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit
-                      similique quae consequatur
-                    </p>
-                  </div>
-                </div>
+            </MDBCardBody>
 
-                <div className="d-flex justify-content-between">
-                  <p className="small mb-1 text-muted">23 Jan 6:10 pm</p>
-                  <p className="small mb-1">Johny Bullock</p>
-                </div>
-                <div className="d-flex flex-row justify-content-end mb-4 pt-1">
-                  <div>
-                    <p className="small p-2 me-3 mb-3 text-white rounded-3 bg-warning">
-                      Dolorum quasi voluptates quas amet in repellendus
-                      perspiciatis fugiat
-                    </p>
-                  </div>
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                    alt="avatar 1"
-                    style={{ width: "45px", height: "100%" }}
-                  />
-                </div>
-              </MDBCardBody>
-           
             <MDBCardFooter className="text-muted d-flex justify-content-start align-items-center p-3">
               <MDBInputGroup className="mb-0">
                 <input
