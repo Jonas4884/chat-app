@@ -9,10 +9,6 @@ import { channelProvider } from "@/providers";
 import { GetServerSideProps, GetStaticProps } from "next";
 
 
-
- 
-
-
 type RestChannelProps = {
   value : RestChannel[]
 }

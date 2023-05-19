@@ -29,3 +29,8 @@ export interface User {
     token?: string;
     updatedAt?: string;
   }
+  export interface ChatUser {
+    id : number,
+    name : string,
+    email : string
+  }

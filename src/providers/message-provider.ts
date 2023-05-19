@@ -2,11 +2,11 @@ import { chatMessage } from "@/common/types";
 import { userRequest } from "./utils";
 
 
-export const chatMessageProvider = {
+export const MessageProvider = {
     SendMessage : async(message : chatMessage)=>{
         userRequest().post("/message",message)
     },
-    getChannelMessage :async (id:number) => {
+    getMessageByChannelId :async (id:number) => {
        try {
         const message = await userRequest().get(`/messages/channel/${id}`)
         return message;
@@ -17,7 +17,7 @@ export const chatMessageProvider = {
         return  {status,data}
        }
     },
-    getUserMessage : async (id: number)=> {
+    getMessageByUserId : async (id: number)=> {
         try {
             const message = await userRequest().get(`/messages/${id}`)
             return message;
