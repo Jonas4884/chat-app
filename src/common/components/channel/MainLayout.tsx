@@ -3,6 +3,9 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import { ChannelListContainer } from "./ChannelList";
 import { ChatBox } from "../chat";
 import { ChannelInfo } from "../banner";
+import { RestChannel } from "@/common/types";
+import { GetServerSideProps } from "next";
+import { channelProvider } from "@/providers";
 
 
 export type MainLayoutProps = PropsWithChildren< {
@@ -11,13 +14,14 @@ export type MainLayoutProps = PropsWithChildren< {
   RightPanel?: ReactNode;
 }>;
 
-export const MainLayout = ({MainPanel,LeftPanel,RightPanel}: MainLayoutProps) => {
+export const MainLayout = ({MainPanel,LeftPanel,RightPanel}: MainLayoutProps,data: RestChannel[]) => {
 
 
   return (
     <Container>
       <Row>
-      <Col> <ChannelListContainer />
+      <Col> <ChannelListContainer data={data}
+       />
           
         </Col>
         <Col  xs={6}>
@@ -30,3 +34,9 @@ export const MainLayout = ({MainPanel,LeftPanel,RightPanel}: MainLayoutProps) =>
     </Container>
   );
 };
+export const getServerSideProps : GetServerSideProps =async () => {
+  const data = channelProvider.getAllChannel();
+    return{
+      props : {data}
+    }
+}

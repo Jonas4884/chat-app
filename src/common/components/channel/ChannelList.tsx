@@ -22,22 +22,35 @@ const ChannelDefault: RestChannel[]=
                 email: "elin.mask@test.com"
       }
     }
+    , {
+      id: 2,
+      name: "jkk",
+      type: "private",
+      createdAt: "2023-05-19T08:52:10.454Z",
+      updatedAt: "2023-05-19T08:52:10.454Z",
+      ownerId: 1,
+      owner: {
+          "id": 1,
+          "name": "Elin Mask",
+          "email": "elin.mask@test.com"
+      }
+    }
   ]
   type RestChannelType = {
     data : RestChannel[]
   }
 
-export const ChannelListContainer = (id : number,{data}:RestChannelType) => {
-    const publicChannel = customChannelTeamFilter(data)
-    const privateChannel = customChannelDirectFilter(data)
+export const ChannelListContainer = ({data}:RestChannelType) => {
+   
     return (
 
         <div className="channel-list__list__wrapper">
             <CreateChannel/>
             <>
                 {
-                   publicChannel ?? ChannelDefault.map((key,item) => { 
-                      <TeamChannelList id={key.id} type={key.type} name={key.name} owner={key.owner} ownerId={key.ownerId}/>
+                   ChannelDefault.map((key) => { 
+                      return (<TeamChannelList key={key.id} item={key}/>
+                      )
                     })
                 }
                 
@@ -45,17 +58,10 @@ export const ChannelListContainer = (id : number,{data}:RestChannelType) => {
          
             <>
             {
-                   privateChannel ?? ChannelDefault.map((key,item) => { 
-                      <TeamChannelList id={key.id} type={key.type} name={key.name} owner={key.owner} ownerId={key.ownerId}/>
-                    })
+                  console.log(data)
+                  
                 }
             </>
         </div>
     )
-}
-export const getServerSideProps : GetServerSideProps<{data : RestChannelType}> =async (context) => {
-  const data = await channelProvider.getAllChannel()
-    return{
-      props : {data}
-    }
 }

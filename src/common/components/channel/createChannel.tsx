@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { Input } from '../Input';
+import { Input, InputWithSearch } from '../Input';
 import { ChannelforDomain, CreateUser } from '@/common/types';
 import { FormProvider, useForm } from 'react-hook-form';
 import { channelProvider } from '@/providers';
@@ -32,6 +32,8 @@ export const CreateChannel = () => {
       const postChannel = await channelProvider.createNewChannel(channel)
       if (postChannel) {
         console.log("success");
+        console.log(channel);
+        
         toast.success('🦄 Wow so easy!', {
           position: "top-right",
           autoClose: 5000,
@@ -70,7 +72,7 @@ export const CreateChannel = () => {
             <Modal.Body>
               <Input name='name' label='channel Name' />
               <Input name='type' label='channel Type' />
-              <Input name='members' label='member Name' />
+              <InputWithSearch/>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="outline-danger" onClick={handleClose}>
@@ -81,10 +83,7 @@ export const CreateChannel = () => {
               </Button>
             </Modal.Footer>
           </form>
-         
         </FormProvider>
-
-
       </Modal>
     </>
   );

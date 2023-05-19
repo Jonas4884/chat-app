@@ -5,11 +5,8 @@ import { ChannelListContainer } from "@/common/components/channel/ChannelList";
 
 import { Channel,RestChannel } from "@/common/types";
 import { channelProvider } from "@/providers";
-
-import { userRequest } from "@/providers/utils";
-
 import { GetServerSideProps } from "next";
-import { ToastContainer } from "react-toastify";
+
 
 
 const ChannelDefault: RestChannel[]=
@@ -31,10 +28,7 @@ const ChannelDefault: RestChannel[]=
 
 
 const ChatRoom = (value: RestChannel[]) => {
-  if (value.length == 0) {
-    value = ChannelDefault
-  }
- 
+
  
   
   return (
