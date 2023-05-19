@@ -1,47 +1,37 @@
-import { CreateChannel, Layout, MainLayout} from "@/common/components";
+import { ChatBox, CreateChannel, Layout, MainLayout} from "@/common/components";
+import { ChannelInfo } from "@/common/components/banner";
 
 import AppBar from "@/common/components/channel/AppBar";
 import { ChannelListContainer } from "@/common/components/channel/ChannelList";
 
 import { Channel,RestChannel } from "@/common/types";
 import { channelProvider } from "@/providers";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 
 
 
-const ChannelDefault: RestChannel[]=
-
-   [
-    {
-      id: 1,
-      name: "channelName",
-      type: "private",
-      ownerId: 1,
-      owner:{
-        name : "John",
-        email:"Doe"
-      }
-    }
-  ]
  
 
 
-
-const ChatRoom = (value: RestChannel[]) => {
+type RestChannelProps = {
+  value : RestChannel[]
+}
+const ChatRoom = ({value}: RestChannelProps) => {
 
  
   
   return (
     <Layout>
       <AppBar name="john" />
-        <MainLayout LeftPanel={<ChannelListContainer/>} RightPanel={<CreateChannel/>} MainPanel={<ChannelListContainer/>}/>
-        
+        <MainLayout data={value} LeftPanel={<ChannelListContainer data={value}/>} RightPanel={<ChannelInfo/>} MainPanel={<ChatBox/>}/>
     </Layout>
   )
 }
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps:GetServerSideProps = async (context) => {
   const res = await channelProvider.getAllChannel() as any
   const value = res.data.channels;
+ 
+  
   return { props: { value } };
 }
 export default ChatRoom;

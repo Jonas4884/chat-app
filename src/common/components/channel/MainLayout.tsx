@@ -12,31 +12,29 @@ export type MainLayoutProps = PropsWithChildren< {
   MainPanel: ReactNode;
   LeftPanel?: ReactNode;
   RightPanel?: ReactNode;
+  data : RestChannel[]
 }>;
 
-export const MainLayout = ({MainPanel,LeftPanel,RightPanel}: MainLayoutProps,data: RestChannel[]) => {
-
-
+export const MainLayout = ({MainPanel,LeftPanel,RightPanel,data}: MainLayoutProps) => {
   return (
     <Container>
       <Row>
-      <Col> <ChannelListContainer data={data}
-       />
+      <Col> {
+          LeftPanel
+      }
+       
           
         </Col>
         <Col  xs={6}>
-            <ChatBox/>
+            {
+              MainPanel
+            }
         </Col>
         <Col>
-          <ChannelInfo/>
+          {RightPanel}
         </Col>
       </Row>
     </Container>
   );
 };
-export const getServerSideProps : GetServerSideProps =async () => {
-  const data = channelProvider.getAllChannel();
-    return{
-      props : {data}
-    }
-}
+
