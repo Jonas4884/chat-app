@@ -33,7 +33,7 @@ export const CreateChannel = () => {
     const createChannel = async () => {
       const postChannel = await channelProvider.createNewChannel(channel)
       if (postChannel) {
-       route.push("/chat")
+       route.push("/channel")
       }else{
         toast('error on channel creating try to verify channel information')
       }

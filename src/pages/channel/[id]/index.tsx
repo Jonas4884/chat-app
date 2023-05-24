@@ -32,7 +32,7 @@ export const getServerSideProps:GetServerSideProps = async (context) => {
   
    
     const {id} = context.query 
-    if (typeof id === 'string' && getSavedCred.accessToken()) {
+    if (typeof id === 'string' ) {
         const channelId = parseInt(id, 10); 
         const channel = await channelProvider.getAllChannel() as any
         const channelList = channel.data.channels // Get all Channel list

@@ -8,7 +8,7 @@ export const authProvider = {
         try {
             const userToRest: UsertoREST = (await userRequest().post('/users/login', user)).data.user;
             cache.accessToken(userToRest?.token);   
-            return {redirection: '/login',data : userToRest as UserforDomain,authenticate: true};
+            return {redirection: '/channel',data : userToRest as UserforDomain,authenticate: true};
         } catch (error) {
             const {
                 response : { status,data}

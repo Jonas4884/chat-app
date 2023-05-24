@@ -8,33 +8,27 @@ import { Channel,RestChannel } from "@/common/types";
 import { getSavedCred } from "@/common/utils";
 import { channelProvider } from "@/providers";
 import { GetServerSideProps, GetStaticProps } from "next";
+import { useEffect, useState } from "react";
 
 
 type RestChannelProps = {
   value : RestChannel[]
 }
-const ChatRoom = ({value}: RestChannelProps) => {
-
- 
-  
+const ChatRoom = () => {
+  const [data,setData] = useState();
+  useEffect(()=>{
+    const getData =async () => {
+      const res = await channelProvider.getAllChannel();
+     setData(res.data.channels)
+    }
+    getData()
+  },[data])
   return (
     <Layout>
       <AppBar name="john" />
-        <MainLayout data={value} LeftPanel={<ChannelListContainer data={value}/>} RightPanel={<ChannelInfo/>} MainPanel={<ChatBox/>}/>
+        <MainLayout data={data} LeftPanel={<ChannelListContainer data={data}/>} RightPanel={<ChannelInfo/>} MainPanel={<ChatBox/>}/>
     </Layout>
   )
 }
-export const getServerSideProps:GetServerSideProps = async (context) => {
-  
-  if(getSavedCred.accessToken()){
-    const res = await channelProvider.getAllChannel() as any
-  const value = res.data.channels;
-  
-  return { props: { value } };
-  }
-  return {
-    props : {}
-  }
-  
-}
+
 export default ChatRoom;

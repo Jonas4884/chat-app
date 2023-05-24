@@ -2,7 +2,7 @@ import { Channel,  ChannelforDomain,  RestChannel } from "@/common/types";
 import { userRequest } from "./utils";
 
 export const channelProvider = {
-    getAllChannel : async() =>userRequest().get("/channels"),
+    getAllChannel : async() => (await userRequest().get("/channels")),
     getChanelById : async(id: number)=> userRequest().get(`/channel/${id}`),
     addMembertoChannel : async(member: RestChannel,id: string) =>{
         try{
