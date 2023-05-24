@@ -1,6 +1,7 @@
 import { getSavedCred } from '@/common/utils';
 import axios from 'axios';
 import { BASE_URL } from './base';
+import { authProvider } from '../auth-provider';
 
 export const userLogRequest = () => {
   const accessToken = getSavedCred.accessToken();

@@ -5,6 +5,7 @@ import AppBar from "@/common/components/channel/AppBar";
 import { ChannelListContainer } from "@/common/components/channel/ChannelList";
 
 import { Channel,RestChannel } from "@/common/types";
+import { getSavedCred } from "@/common/utils";
 import { channelProvider } from "@/providers";
 import { GetServerSideProps, GetStaticProps } from "next";
 
@@ -24,10 +25,16 @@ const ChatRoom = ({value}: RestChannelProps) => {
   )
 }
 export const getServerSideProps:GetServerSideProps = async (context) => {
-  const res = await channelProvider.getAllChannel() as any
+  
+  if(getSavedCred.accessToken()){
+    const res = await channelProvider.getAllChannel() as any
   const value = res.data.channels;
- 
   
   return { props: { value } };
+  }
+  return {
+    props : {}
+  }
+  
 }
 export default ChatRoom;

@@ -14,6 +14,7 @@ const userSignInDefaultValues: LoginUser = {
   password: '',
 };
 
+// TODO : You can use useSWRStation
 const SignInPage = () => {
   const form = useForm<CreateUser>({
     defaultValues: userSignInDefaultValues,
@@ -30,10 +31,11 @@ const SignInPage = () => {
       const { redirection, data, authenticate } = await authProvider.signIn(user);
       if (authenticate) {
         setUser(data);
+        push(redirection)
       } else {
         setErrorMessage(data);
       }
-      push(redirection)
+     
     };
     login()
   });
