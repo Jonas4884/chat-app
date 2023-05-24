@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { useAuthenticate } from '../hooks';
-
+import NextNProgress from 'nextjs-progressbar';
 
 type LayoutProps = {
   children: ReactNode | string;
@@ -10,6 +10,7 @@ export const Layout = (props: LayoutProps) => {
 
   return (
     <>
+       <NextNProgress />
       {isLoading ? (
         <div
         className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
@@ -19,6 +20,7 @@ export const Layout = (props: LayoutProps) => {
           </span>
       </div>
       ) : (
+        
         props.children
       )}
     </>

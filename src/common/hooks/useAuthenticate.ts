@@ -13,7 +13,7 @@ export const useAuthenticate = () => {
       if (accessToken === null) {
         push('/login');
       } else {
-        push('/chat');
+        push('/channel');
       }}
     const timeoutId = setTimeout(() => {
       setLoading(false);

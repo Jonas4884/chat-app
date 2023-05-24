@@ -8,6 +8,11 @@ export interface Channel  {
     updatedAt?: string,
     ownerId: number
 }
+export interface CreateChannel{
+    name : string,
+    type :string,
+    members :string
+}
 
 export interface RestChannel extends Channel{
     owner : UserforDomain

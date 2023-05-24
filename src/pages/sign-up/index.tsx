@@ -31,7 +31,7 @@ const SignInPage = () => {
         const user = { ...createUser };
         delete user.confirmPassword;
         cache.user(user);
-        push('/chat');
+        push('/channel');
     });
 
     return (

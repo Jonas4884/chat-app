@@ -3,7 +3,7 @@ import { userRequest } from "./utils";
 
 export const channelProvider = {
     getAllChannel : async() => (await userRequest().get("/channels")),
-    getChanelById : async(id: number)=> userRequest().get(`/channel/${id}`),
+    getChannelById : async(id: number)=> userRequest().get(`/channel/${id}`),
     addMembertoChannel : async(member: RestChannel,id: string) =>{
         try{
              const data = userRequest().post(`/channels?channelId=${id}/members`,member)

@@ -7,17 +7,23 @@ import { TeamChannelList } from "./TeamChannelList";
 import { CreateChannel } from "./CreateChannel";
 import { GetServerSideProps } from "next";
 import { channelProvider } from "@/providers";
+import { useRouter } from "next/router";
+import { Button } from "react-bootstrap";
 
 type RestChannelType = {
-  data: RestChannel[]
+  data: RestChannel[],
+  id ?: number
 }
 
 export const ChannelListContainer = ({ data }: RestChannelType) => {
-
+  const route = useRouter();
+  const handleShow = () => route.push("/channel/create");
   return (
 
     <div className="channel-list__list__wrapper">
-      <CreateChannel />
+     <Button variant="primary" onClick={handleShow}>
+        Add new Channel
+      </Button>
       <>
         {
           data.map((key) => {

@@ -17,17 +17,22 @@ type RestChannelProps = {
 const ChatRoom = () => {
   const [data,setData] = useState();
   useEffect(()=>{
-    const getData =async () => {
-      const res = await channelProvider.getAllChannel();
-     setData(res.data.channels)
+    const getData = () => {
+      channelProvider.getAllChannel().then((response)=>{
+          setData(response.data.channels)
+      });      
     }
-    getData()
+     getData(); 
   },[data])
   return (
+    <>
+        <AppBar name="john" />
     <Layout>
-      <AppBar name="john" />
+      
         <MainLayout data={data} LeftPanel={<ChannelListContainer data={data}/>} RightPanel={<ChannelInfo/>} MainPanel={<ChatBox/>}/>
     </Layout>
+    </>
+  
   )
 }
 

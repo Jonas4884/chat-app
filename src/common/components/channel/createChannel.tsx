@@ -1,80 +1,69 @@
-import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { Input, InputWithSearch } from '../Input';
-import { ChannelforDomain, CreateUser } from '@/common/types';
-import { FormProvider, useForm } from 'react-hook-form';
-import { channelProvider } from '@/providers';
-import { toast } from 'react-toastify';
-import { ToastContainer } from "react-toastify";
+import { useAuthenticate } from "@/common/hooks";
+import { Input, Layout } from '@/common/components';
+import { CreateChannel, LoginUser } from '@/common/types';
+import { cache } from '@/common/utils';
 import { useRouter } from 'next/router';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useGlobalStore } from "@/userContext";
+import { authProvider } from "@/providers/auth-provider";
+import { channelProvider } from "@/providers";
+import { toast } from "react-toastify";
 
-const ChannelDefaultValue = {
-  name: '',
-  type: '',
-  members: ''
-}
-export const CreateChannel = () => {
-  const [show, setShow] = useState(false);
-  const route = useRouter();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+const channelDefaultValue: CreateChannel = {
+  name : '',
+  type : '',
+  members : ''
+};
 
-  const form = useForm<ChannelforDomain>({
-    defaultValues: ChannelDefaultValue,
+
+const CreateNewChannel = () => {
+  const form = useForm<CreateChannel>({
+    defaultValues: channelDefaultValue,
     mode: 'all',
 
   });
+  const { push } = useRouter();
 
-  const handleSubmit = form.handleSubmit((CreateChannel: ChannelforDomain) => {
-    const channel = { ...CreateChannel }
-    const createChannel = async () => {
-      const postChannel = await channelProvider.createNewChannel(channel)
-      if (postChannel) {
-       route.push("/channel")
-      }else{
-        toast('error on channel creating try to verify channel information')
+  const handleSubmit = form.handleSubmit((createChannel: CreateChannel) => {
+    const createdChannel = { ...createChannel };
+    const createNewChannel = async () => {
+      const resutlChannel  = await channelProvider.createNewChannel(createdChannel);
+      const id = resutlChannel.data.channel.id
+      if (resutlChannel) {
+        push(`/channel/${id}`)
+      } else {
+        toast('error on creating channel')
       }
-      
-    }
-    createChannel();
-   
-  })
+    };
+    createNewChannel()
+  });
 
   return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Add new Channel
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title id="add-channel__title" >
-            {<p className="text-slate-400 hover:text-sky-400">
-              Adding Channel
-            </p>}
-          </Modal.Title>
-        </Modal.Header>
-        <FormProvider {...form}>
-          <form >
-            <Modal.Body>
-              <Input name='name' label='channel Name' />
-              <Input name='type' label='channel Type' />
-              <InputWithSearch/>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="outline-danger" >
-                Cancel
-              </Button>
-              <Button variant="info" onClick={handleSubmit}>
-                Add new Channel
-              </Button>
-            </Modal.Footer>
-          </form>
-        </FormProvider>
-      </Modal>
-    </>
-  );
+    <Layout>
+      <FormProvider {...form}>
+        <div className="back">
+          <div className="div-center">
+            <div className="content">
+              <h3>Add new Channel</h3>
+              <hr />
+              <form onSubmit={handleSubmit}>
+                <div className="mt-4">
+                  <Input label='name' name='name' />
+                  <Input label='type' name='type' />
+                  <Input label='member' name='member' />
+                </div>
+                <button type="submit" className="btn btn-outline-primary form-login__label" >Add Channel</button>
+                <hr />
+                <button type="button" className="btn btn-link form-login__label" onClick={()=>push("/channel")}>Cancel</button>
+               
+              </form>
+            </div>
+          </div>
+        </div>
+      </FormProvider>
+    </Layout>
+  )
 }
+
+export default CreateNewChannel;

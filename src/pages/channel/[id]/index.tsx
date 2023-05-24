@@ -17,9 +17,7 @@ type ChatRoomWithIdProps ={
     value : RestChannel
 }
 const ChatRoomWihId = ({value,channelList,resMessage}: ChatRoomWithIdProps) => {
-
  
-  
   return (
     <Layout>
       <AppBar name="john" />
@@ -27,22 +25,5 @@ const ChatRoomWihId = ({value,channelList,resMessage}: ChatRoomWithIdProps) => {
     </Layout>
   )
 }
-export const getServerSideProps:GetServerSideProps = async (context) => {
-
-  
-   
-    const {id} = context.query 
-    if (typeof id === 'string' ) {
-        const channelId = parseInt(id, 10); 
-        const channel = await channelProvider.getAllChannel() as any
-        const channelList = channel.data.channels // Get all Channel list
-        const res = await channelProvider.getChanelById(channelId) as any; 
-        const Message = await MessageProvider.getMessageByChannelId(channelId)
-        const resMessage = Message.data.messages // Get all message by provided id
-        const value = res.data.channel; // get channel info by provided id
-               
-        return { props: { channelList,value,resMessage } };
-      }
-      return { props: {} }; 
-}   
+ 
 export default ChatRoomWihId;

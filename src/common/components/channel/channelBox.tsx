@@ -8,7 +8,7 @@ type ChannelBoxType = {
 export const ChannelBox = ({channel}: ChannelBoxType) => {
     const redirectChannel = useRouter()
     const  Channel = (id ?:number)=>{
-        redirectChannel.push(`/chat/${id}`)
+        redirectChannel.push(`/channel/${id}`)
     }
     return (
         <>
