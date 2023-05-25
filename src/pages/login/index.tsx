@@ -29,13 +29,12 @@ const SignInPage = () => {
     delete user.confirmPassword;
     const login = async () => {
       const { redirection, data, authenticate } = await authProvider.signIn(user);
-      if (authenticate) {
+      if (authenticate) {        
         setUser(data);
         push(redirection)
       } else {
         setErrorMessage(data);
       }
-     
     };
     login()
   });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
+import { AddMemberToChannel } from '../channel';
 export const ChannelInfo =()=> {
   return (
     <div className="" style={{ backgroundColor: '#eee' }}>
@@ -29,7 +30,7 @@ export const ChannelInfo =()=> {
                   </MDBBtn>
                 </div>
                 <div>
-                <Button variant="warning">Add more user</Button>
+                  <AddMemberToChannel/>
                     </div>
               
                 

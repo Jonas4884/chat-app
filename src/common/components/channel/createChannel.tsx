@@ -1,6 +1,6 @@
 import { useAuthenticate } from "@/common/hooks";
 import { Input, Layout } from "@/common/components";
-import { CreateChannel, LoginUser } from "@/common/types";
+import { CreateChannel, LoginUser, User } from "@/common/types";
 import { cache } from "@/common/utils";
 import { useRouter } from "next/router";
 import { Controller, FormProvider, useForm } from "react-hook-form";
@@ -11,13 +11,24 @@ import { toast } from "react-toastify";
 import Select from "react-select";
 import { useEffect, useState } from "react";
 import { userProvider } from "@/providers/user-provider";
+import { type } from "os";
+import { Form } from "react-bootstrap";
+import { Radio } from "./Radio";
 
 const channelDefaultValue: CreateChannel = {
   name: "",
   type: "",
   members: "",
 };
-
+type CreateChannelProps = {
+  data?: User[];
+};
+const options = [
+  { value: "blues", label: "Blues" },
+  { value: "rock", label: "Rock" },
+  { value: "jazz", label: "Jazz" },
+  { value: "orchestra", label: "Orchestra" },
+];
 const CreateNewChannel = () => {
   const form = useForm<CreateChannel>({
     defaultValues: channelDefaultValue,
@@ -25,11 +36,12 @@ const CreateNewChannel = () => {
   });
   const dataSelected = useForm();
   const { push } = useRouter();
-  const [data,setData] = useState();
-  useEffect(()=>{
-      const getUsers = async ()=> await userProvider.getUsers().then((res)=>{setData(res.data.users)})
-      getUsers
-  },[])
+  const [data, setData] = useState();
+  useEffect(() => {
+    userProvider.getUsers().then((res) => {
+      setData(res);
+    });
+  }, []);
 
   const handleSubmit = form.handleSubmit((createChannel: CreateChannel) => {
     const createdChannel = { ...createChannel };
@@ -58,13 +70,13 @@ const CreateNewChannel = () => {
               <form onSubmit={handleSubmit}>
                 <div className="mt-4">
                   <Input label="name" name="name" />
-                  <Input label="type" name="type" />
+                  <Radio value="public"   />
+                  <Radio value="private"   />
                   <Controller
                     name="members"
-                    control={dataSelected}
                     defaultValue={null}
                     render={({ field }) => (
-                      <Select {...field} options={data} />
+                      <Select {...field} options={options} isMulti />
                     )}
                   />
                 </div>

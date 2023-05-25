@@ -5,7 +5,7 @@ import { produce } from 'immer';
 export const useGlobalStore = create<GlobalStore>()(set => ({
   setUser(user) {
     set(
-      produce((state: GlobalStore) => {
+      produce((state: GlobalStore) => {        
         state.user = user;
       })
     );

@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 export const MessageProvider = {
     SendMessage : async(message : chatMessage)=>{
-        
+
         userRequest().post("/message",message)
     },
     getMessageByChannelId :async (id:number) => {
