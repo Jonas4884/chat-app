@@ -1,8 +1,8 @@
 import { ChatUser } from "./user"
 
 export interface chatMessage {
-    senderid : number,
-    recepientid: number,
+    senderid ?: number,
+    recepientid?: number,
     channelid?: number,
     content: string
 }

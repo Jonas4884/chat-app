@@ -1,42 +1,50 @@
 import { useAuthenticate } from "@/common/hooks";
-import { Input, Layout } from '@/common/components';
-import { CreateChannel, LoginUser } from '@/common/types';
-import { cache } from '@/common/utils';
-import { useRouter } from 'next/router';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Input, Layout } from "@/common/components";
+import { CreateChannel, LoginUser } from "@/common/types";
+import { cache } from "@/common/utils";
+import { useRouter } from "next/router";
+import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useGlobalStore } from "@/userContext";
 import { authProvider } from "@/providers/auth-provider";
 import { channelProvider } from "@/providers";
 import { toast } from "react-toastify";
-
+import Select from "react-select";
+import { useEffect, useState } from "react";
+import { userProvider } from "@/providers/user-provider";
 
 const channelDefaultValue: CreateChannel = {
-  name : '',
-  type : '',
-  members : ''
+  name: "",
+  type: "",
+  members: "",
 };
-
 
 const CreateNewChannel = () => {
   const form = useForm<CreateChannel>({
     defaultValues: channelDefaultValue,
-    mode: 'all',
-
+    mode: "all",
   });
+  const dataSelected = useForm();
   const { push } = useRouter();
+  const [data,setData] = useState();
+  useEffect(()=>{
+      const getUsers = async ()=> await userProvider.getUsers().then((res)=>{setData(res.data.users)})
+      getUsers
+  },[])
 
   const handleSubmit = form.handleSubmit((createChannel: CreateChannel) => {
     const createdChannel = { ...createChannel };
     const createNewChannel = async () => {
-      const resutlChannel  = await channelProvider.createNewChannel(createdChannel);
-      const id = resutlChannel.data.channel.id
+      const resutlChannel = await channelProvider.createNewChannel(
+        createdChannel
+      );
+      const id = resutlChannel.data.channel.id;
       if (resutlChannel) {
-        push(`/channel/${id}`)
+        push(`/channel/${id}`);
       } else {
-        toast('error on creating channel')
+        toast("error on creating channel");
       }
     };
-    createNewChannel()
+    createNewChannel();
   });
 
   return (
@@ -49,21 +57,38 @@ const CreateNewChannel = () => {
               <hr />
               <form onSubmit={handleSubmit}>
                 <div className="mt-4">
-                  <Input label='name' name='name' />
-                  <Input label='type' name='type' />
-                  <Input label='member' name='member' />
+                  <Input label="name" name="name" />
+                  <Input label="type" name="type" />
+                  <Controller
+                    name="members"
+                    control={dataSelected}
+                    defaultValue={null}
+                    render={({ field }) => (
+                      <Select {...field} options={data} />
+                    )}
+                  />
                 </div>
-                <button type="submit" className="btn btn-outline-primary form-login__label" >Add Channel</button>
+                <button
+                  type="submit"
+                  className="btn btn-outline-primary form-login__label"
+                >
+                  Add Channel
+                </button>
                 <hr />
-                <button type="button" className="btn btn-link form-login__label" onClick={()=>push("/channel")}>Cancel</button>
-               
+                <button
+                  type="button"
+                  className="btn btn-link form-login__label"
+                  onClick={() => push("/channel")}
+                >
+                  Cancel
+                </button>
               </form>
             </div>
           </div>
         </div>
       </FormProvider>
     </Layout>
-  )
-}
+  );
+};
 
 export default CreateNewChannel;

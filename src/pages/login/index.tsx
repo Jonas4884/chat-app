@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useGlobalStore } from "@/userContext";
 import { authProvider } from "@/providers/auth-provider";
-import { userSchema } from "./utils/userSchema";
+
 
 
 const userSignInDefaultValues: LoginUser = {

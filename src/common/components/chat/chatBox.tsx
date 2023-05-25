@@ -7,7 +7,12 @@ import {
   MDBCardFooter,
   MDBInputGroup,
 } from "mdb-react-ui-kit";
-import { RestChatMessage, chatMessage } from "@/common/types";
+import { chatMessage, RestChatMessage} from "@/common/types";
+import { MessageProvider, authProvider } from "@/providers";
+import { useGlobalStore } from "@/userContext";
+import { useRouter } from "next/router";
+import { FormProvider, useForm } from "react-hook-form";
+import {  Input } from "../Input";
 
 type ChatBoxProps = {
   data?: RestChatMessage[]
@@ -34,7 +39,30 @@ const MessagePosition = ({ data }: RestChat) => {
 }
 
 export const ChatBox = ({ data }: ChatBoxProps) => {
- 
+  const route = useRouter();
+  const channelId = Number(route.query.id)
+  const form = useForm<chatMessage>({
+    defaultValues: DefaultChatMessage.at(0),
+    mode: 'all',
+
+  });
+
+  const handleSubmit = form.handleSubmit((message: chatMessage) => {
+    
+    message.channelid = channelId;
+    const userMessage = { ...message};
+    const sendMessage = async () => {
+      try {
+        await MessageProvider.SendMessage(userMessage);
+      } catch (error) {
+        console.log(error);
+        
+        alert("error occurs on sending message "+ {error})
+      }
+      
+    };
+    sendMessage()
+  });
   return (
     <div className="chat">
       <div className="d-flex justify-content-center">
@@ -104,14 +132,15 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
 
             <MDBCardFooter className="text-muted d-flex justify-content-start align-items-center p-3">
               <MDBInputGroup className="mb-0">
-                <input
-                  className="form-control"
-                  placeholder="Type message"
-                  type="text"
-                />
-                <MDBBtn color="warning" style={{ paddingTop: ".55rem" }}>
+
+                <FormProvider {...form}>
+                  <form action="" onSubmit={handleSubmit}>
+                  <Input name="message" label="messsage"/>
+                  <MDBBtn color="warning" style={{ paddingTop: ".55rem" }} type="submit">
                   Button
                 </MDBBtn>
+                  </form>
+                </FormProvider>                
               </MDBInputGroup>
             </MDBCardFooter>
           </div>
