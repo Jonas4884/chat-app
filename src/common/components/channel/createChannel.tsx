@@ -72,13 +72,6 @@ const CreateNewChannel = () => {
                   <Input label="name" name="name" />
                   <Radio value="public"   />
                   <Radio value="private"   />
-                  <Controller
-                    name="members"
-                    defaultValue={null}
-                    render={({ field }) => (
-                      <Select {...field} options={options} isMulti />
-                    )}
-                  />
                 </div>
                 <button
                   type="submit"
