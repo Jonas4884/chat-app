@@ -10,7 +10,7 @@ import {
 import { RestChatMessage, chatMessage } from "@/common/types";
 
 type ChatBoxProps = {
-  data: RestChatMessage[]
+  data?: RestChatMessage[]
 }
 type RestChat = {
   data: RestChatMessage

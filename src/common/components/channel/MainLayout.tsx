@@ -12,10 +12,9 @@ export type MainLayoutProps = PropsWithChildren< {
   MainPanel: ReactNode;
   LeftPanel?: ReactNode;
   RightPanel?: ReactNode;
-  data : RestChannel[]
 }>;
 
-export const MainLayout = ({MainPanel,LeftPanel,RightPanel,data}: MainLayoutProps) => {
+export const MainLayout = ({MainPanel,LeftPanel,RightPanel}: MainLayoutProps) => {
   return (
     <Container>
       <Row>
