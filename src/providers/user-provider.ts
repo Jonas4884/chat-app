@@ -4,8 +4,7 @@ export const userProvider = {
     getUsers : async ()=>{
 
         try {
-           const res = await userRequest().get("/user")
-           
+           const res = await userRequest().get("/users")
             return res.data.user
         } catch (error) {
             const {

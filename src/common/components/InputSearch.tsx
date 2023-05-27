@@ -1,35 +1,27 @@
-import { Controller, useFormContext} from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import { User } from '../types';
-import { useState } from 'react';
+import Select from "react-select";
+import { useForm, Controller, SubmitHandler, useFormContext } from "react-hook-form";
 
-
-const animatedComponents = makeAnimated();
-type InputWithSearchProps = {
-    value :  unknown,
-    option : unknown
+interface IFormInput {
+  membersType: { label: string; value: string };
 }
-const options = [
-  { value: "blues", label: "Blues" },
-  { value: "rock", label: "Rock" },
-  { value: "jazz", label: "Jazz" },
-  { value: "orchestra", label: "Orchestra" },
-];
+export const InputWithSearch = () => {
+  const { control, formState : errors } = useFormContext();
 
-export const InputWithSearch = ({value,option} :InputWithSearchProps)=> {
  
-    const {
-        register,
-        formState: {errors},
-      } = useFormContext();
-     
+
   return (
-    <>
-    
-                      <Select {...register("members")} options={options} isMulti />
-                 
-    </>
-   
+      <Controller
+        name="membersType"
+        control={control}
+        render={({ field }) => <Select 
+          {...field} 
+          options={[
+            { value: "chocolate", label: "Chocolate" },
+            { value: "strawberry", label: "Strawberry" },
+            { value: "vanilla", label: "Vanilla" }
+          ]} 
+          isMulti
+        />}
+      />
   );
-}
+};

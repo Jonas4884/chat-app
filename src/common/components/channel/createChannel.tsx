@@ -1,5 +1,5 @@
 import { useAuthenticate } from "@/common/hooks";
-import { Input, Layout } from "@/common/components";
+import { Input, InputWithSearch, Layout } from "@/common/components";
 import { CreateChannel, LoginUser, User } from "@/common/types";
 import { cache } from "@/common/utils";
 import { useRouter } from "next/router";
@@ -44,19 +44,20 @@ const CreateNewChannel = () => {
   }, []);
 
   const handleSubmit = form.handleSubmit((createChannel: CreateChannel) => {
-    const createdChannel = { ...createChannel };
-    const createNewChannel = async () => {
-      const resutlChannel = await channelProvider.createNewChannel(
-        createdChannel
-      );
-      const id = resutlChannel.data.channel.id;
-      if (resutlChannel) {
-        push(`/channel/${id}`);
-      } else {
-        toast("error on creating channel");
-      }
-    };
-    createNewChannel();
+    // const createdChannel = { ...createChannel };
+    // const createNewChannel = async () => {
+    //   const resutlChannel = await channelProvider.createNewChannel(
+    //     createdChannel
+    //   );
+    //   const id = resutlChannel.data.channel.id;
+    //   if (resutlChannel) {
+    //     push(`/channel/${id}`);
+    //   } else {
+    //     toast("error on creating channel");
+    //   }
+    // };
+    // createNewChannel();
+    alert(JSON.stringify(createChannel))
   });
 
   return (
@@ -72,6 +73,7 @@ const CreateNewChannel = () => {
                   <Input label="name" name="name" />
                   <Radio value="public"   />
                   <Radio value="private"   />
+                  <InputWithSearch/>
                 </div>
                 <button
                   type="submit"
