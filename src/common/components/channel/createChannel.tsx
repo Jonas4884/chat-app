@@ -44,21 +44,21 @@ const CreateNewChannel = () => {
   }, []);
 
   const handleSubmit = form.handleSubmit((createChannel: CreateChannel) => {
-    // const createdChannel = { ...createChannel };
-    // const createNewChannel = async () => {
-    //   const resutlChannel = await channelProvider.createNewChannel(
-    //     createdChannel
-    //   );
-    //   const id = resutlChannel.data.channel.id;
-    //   if (resutlChannel) {
-    //     push(`/channel/${id}`);
-    //   } else {
-    //     toast("error on creating channel");
-    //   }
-    // };
-    // createNewChannel();
-    alert(JSON.stringify(createChannel))
+    const createdChannel = { ...createChannel };
+    const createNewChannel = async () => {
+      const resutlChannel = await channelProvider.createNewChannel(
+        createdChannel
+      );
+      const id = resutlChannel.data.channel.id;
+      if (resutlChannel) {
+        push(`/channel/${id}`);
+      } else {
+        toast("error on creating channel");
+      }
+    };
+    createNewChannel();
   });
+
 
   return (
     <Layout>

@@ -11,7 +11,6 @@ export interface Channel  {
 export interface CreateChannel{
     name : string,
     type :string,
-    members :string
 }
 
 export interface RestChannel extends Channel{
