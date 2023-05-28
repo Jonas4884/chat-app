@@ -1,4 +1,4 @@
-import { ChatBox, CreateChannel, Layout, MainLayout} from "@/common/components";
+import { ChatBox, CreateChannel, Layout, MainLayout, SideBar} from "@/common/components";
 import { ChannelInfo } from "@/common/components/banner";
 
 import AppBar from "@/common/components/channel/AppBar";
