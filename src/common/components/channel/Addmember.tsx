@@ -11,8 +11,11 @@ import { toast } from 'react-toastify';
 type members ={
   value ?: number[]
 }
+type ChannelIdType ={
+  id : number
+}
 
-export const AddMemberToChannel =()=> {
+export const AddMemberToChannel =({id}: ChannelIdType)=> {
   const route = useRouter()
   const [show, setShow] = useState(false);
   const form = useForm<members>({
@@ -31,10 +34,11 @@ export const AddMemberToChannel =()=> {
       "members" : create
     }
     const AddmemberToChanbel =async () => {
-      const id = Number(route.query.id) ;
       const addToChannel = await channelProvider.addMembertoChannel(members,id)
       if(addToChannel){
         route.push(`/channel`)
+      console.log(addToChannel);
+      
       }else{
         toast('error occurs on adding member')
       }
@@ -51,7 +55,7 @@ export const AddMemberToChannel =()=> {
       <FormProvider {...form}>
       <Modal show={show} onHide={handleClose} >
         <Modal.Header closeButton>
-          <Modal.Title>Add member to this group</Modal.Title>
+          <Modal.Title>Add m  ember to this group</Modal.Title>
         </Modal.Header>
         <form onSubmit={handleSubmit}>
         <Modal.Body >  

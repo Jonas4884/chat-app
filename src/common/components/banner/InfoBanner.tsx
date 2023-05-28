@@ -2,7 +2,12 @@ import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
 import { AddMemberToChannel } from '../channel';
-export const ChannelInfo =()=> {
+import { useRouter } from 'next/router';
+type ChannelInfoProps = {
+  id : number
+}
+export const ChannelInfo =({id}: ChannelInfoProps)=> {
+  const route = useRouter()
   return (
     <div className="" style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="container py-5 h-100">
@@ -30,7 +35,9 @@ export const ChannelInfo =()=> {
                   </MDBBtn>
                 </div>
                 <div>
-                  <AddMemberToChannel/>
+                  <Button onClick={()=>route.push(`edit/${id}`)}>
+                    Edit this Channel
+                  </Button>
                     </div>
               
                 
