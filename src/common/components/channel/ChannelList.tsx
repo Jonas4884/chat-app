@@ -3,6 +3,7 @@ import { TeamChannelList } from "./TeamChannelList";
 
 import { useRouter } from "next/router";
 import { Button } from "react-bootstrap";
+import { SideBar } from "../sidebar/SideBar";
 
 type RestChannelType = {
   data: RestChannel[],
@@ -20,12 +21,7 @@ export const ChannelListContainer = ({ data }: RestChannelType) => {
         Add new Channel
       </Button>
       <>
-        {
-          data.map((key) => {
-            return (<TeamChannelList key={key.id} item={key} />
-            )
-          })
-        }
+        <SideBar/>
 
       </>
 
