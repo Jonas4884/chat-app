@@ -23,7 +23,7 @@ const ChatRoom = () => {
         <AppBar name="john" />
     <Layout>
       
-        <MainLayout data={data} LeftPanel={<ChannelListContainer data={data}/>} RightPanel={<ChannelInfo/>} MainPanel={<ChatBox/>}/>
+        <MainLayout data={data} LeftPanel={<ChannelListContainer status="channel"/>} RightPanel={<ChannelInfo/>} MainPanel={<ChatBox/>}/>
     </Layout>
     </>
   

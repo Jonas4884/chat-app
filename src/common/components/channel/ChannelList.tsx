@@ -6,11 +6,10 @@ import { Button } from "react-bootstrap";
 import { SideBar } from "../sidebar/SideBar";
 
 type RestChannelType = {
-  data: RestChannel[],
-  id ?: number
+ status : string
 }
 
-export const ChannelListContainer = ({ data }: RestChannelType) => {
+export const ChannelListContainer = ({ status }: RestChannelType) => {
   const route = useRouter();
 
   const handleShow = () => route.push("/channel/create");
@@ -21,7 +20,7 @@ export const ChannelListContainer = ({ data }: RestChannelType) => {
         Add new Channel
       </Button>
       <>
-        <SideBar/>
+        <SideBar status={status}/>
 
       </>
 

@@ -41,7 +41,7 @@ const ChatRoomWihId = ({value,channelList,resMessage}: ChatRoomWithIdProps) => {
   return (
     <Layout>
       <AppBar name="john" />
-        <MainLayout LeftPanel={<ChannelListContainer data={data}/>}  RightPanel={<ChannelInfo id={Number(router.query.id)} />} MainPanel={<ChatBox data={message}/>}/>
+        <MainLayout LeftPanel={<ChannelListContainer status="channel"/>}  RightPanel={<ChannelInfo id={Number(router.query.id)} />} MainPanel={<ChatBox data={message}/>}/>
     </Layout>
   )
 }
