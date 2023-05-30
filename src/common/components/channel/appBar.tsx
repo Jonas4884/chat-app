@@ -19,26 +19,12 @@ const AppBar = ({name}: userNameType) => {
       <Container>
         <Navbar.Brand href="#home" className='text-white'>SLACK</Navbar.Brand>
         <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse className="justify-content-start text-white">
           <Navbar.Text  className='text-white'>
             Signed in as: <a href=""  className='text-white'>{name}</a>
             <button>
             <img src="https://cdn.onlinewebfonts.com/svg/img_87594.png" alt="" width={50} height={50} color='white'  className='bg-white rounded mx-4 py-2 px-2' onClick={()=>logOut()} />
-            </button>
-           <div className='toast-container'>
-           <ToastContainer
-            position="top-left"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
-           </div>
+            </button>   
             
           </Navbar.Text>
         </Navbar.Collapse>

@@ -106,7 +106,7 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
                         <p className="small mb-1">{key.sender?.name}</p>
                         <p className="small mb-1 text-muted">23 Jan 2:00 pm</p>
                       </div>
-                      <div className="d-flex flex-row justify-content-start">
+                      <div className={MessagePosition(data)}>
                         <img
                           src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
                           alt="avatar 1"
@@ -136,9 +136,9 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
                 <FormProvider {...form}>
                   <form action="" onSubmit={handleSubmit}>
                   <Input name="message" label="messsage"/>
-                  <MDBBtn color="warning" style={{ paddingTop: ".55rem" }} type="submit">
-                  Button
-                </MDBBtn>
+                  <button  type="submit">
+                  Send
+                </button>
                   </form>
                 </FormProvider>                
               </MDBInputGroup>
