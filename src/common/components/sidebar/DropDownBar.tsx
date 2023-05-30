@@ -1,5 +1,6 @@
 import { Channel } from "@/common/types";
-import { Dropdown } from "@nextui-org/react";
+import { Dropdown, Link } from "@nextui-org/react";
+import { useRouter } from "next/router";
 
 
 type SideBarProps = {
@@ -8,6 +9,7 @@ type SideBarProps = {
   data?: Channel[];
 };
 export const DropdownArea = ({ type, data,status }: SideBarProps) => {
+  const route = useRouter()
     return (
       <>
         {/* <Dropdown>
@@ -28,7 +30,10 @@ export const DropdownArea = ({ type, data,status }: SideBarProps) => {
     {data.map((key, value) => {
       return (
              <Dropdown.Item key={key.id} >
+              <Link onClick={()=>route.push(`/channel/${key.id}`)} >
               {key.name}
+              </Link>
+              
         </Dropdown.Item>
       );
     })}
