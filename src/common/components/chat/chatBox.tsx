@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBContainer,
   MDBCardBody,
@@ -41,6 +41,7 @@ const MessagePosition = ({ data }: RestChat) => {
 export const ChatBox = ({ data }: ChatBoxProps) => {
   const route = useRouter();
   const channelId = Number(route.query.id)
+  const [message,setMessage]= useState<chatMessage>([])
   const form = useForm<chatMessage>({
     defaultValues: DefaultChatMessage.at(0),
     mode: 'all',
@@ -49,10 +50,15 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
 
   const handleSubmit = form.handleSubmit((message: chatMessage) => {
     
-    message.channelid = channelId;
-    const userMessage = { ...message};
+    const messageTOSend : chatMessage = {
+      content : message.content,
+      channelid : channelId
+    }
+    const userMessage = { ...messageTOSend};
     const sendMessage = async () => {
       try {
+        console.log(userMessage);
+        
         await MessageProvider.SendMessage(userMessage);
       } catch (error) {
         console.log(error);
@@ -61,8 +67,24 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
       }
       
     };
+    
     sendMessage()
   });
+  useEffect(()=>{
+    const getMessagebyId = async () => {
+      try {
+        const messageData =  await MessageProvider.getMessageByChannelId(channelId);
+        setMessage(messageData.data.messages)      
+      } catch (error) {
+        console.log(error);
+        
+        alert("error occurs on fetching message "+ {error})
+      }
+      
+    };
+   
+    getMessagebyId()
+  },[message])
   return (
     <div className="chat mx-0">
       <div className="d-flex justify-content-center mr-3">
@@ -135,7 +157,7 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
 
                 <FormProvider {...form}>
                   <form action="" onSubmit={handleSubmit}>
-                  <Input name="message" label="messsage"/>
+                  <Input name="content" label="messsage"/>
                   <button  type="submit">
                   Send
                 </button>
