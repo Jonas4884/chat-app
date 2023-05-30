@@ -11,7 +11,7 @@ export const DropdownArea = ({ type, data, status }: SideBarProps) => {
   const route = useRouter();
   return (
     <>
-      <div className="my-2 w-100 mx-0">
+      <div className="ml-3 my-2 w-100 ">
       <Grid.Container gap={1.5} xs={12}>
         <Dropdown >
           <Dropdown.Button >{type}</Dropdown.Button>

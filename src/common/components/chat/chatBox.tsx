@@ -64,15 +64,15 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
     sendMessage()
   });
   return (
-    <div className="chat">
-      <div className="d-flex justify-content-center">
+    <div className="chat mx-0">
+      <div className="d-flex justify-content-center mr-3">
         <div >
           <div>
             <div
               className="d-flex justify-content-between align-items-center p-3 chat-box__back"
               style={{ borderTop: "4px solid #ffa900" }}
             >
-              <h5 className="mb-0 text-white">Chat messages 2</h5>
+              <h5 className="mb-0 text-white">Chat messages</h5>
               <div className="d-flex flex-row align-items-center">
                 <span className="badge bg-warning me-3">20</span>
                 <MDBIcon

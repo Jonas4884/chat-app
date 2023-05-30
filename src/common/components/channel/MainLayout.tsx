@@ -29,7 +29,7 @@ export const MainLayout = ({MainPanel,LeftPanel,RightPanel}: MainLayoutProps) =>
               MainPanel
             }
         </Col>
-        <Col>
+        <Col >
           {RightPanel}
         </Col>
       </Row>

@@ -193,3 +193,9 @@ div.content h3{
 .channel-card{
   margin: 14px 14px 14px 14px;
 }
+.chat{
+  width: 100%;
+}
+.chat-box__back{
+  width: 650px;
+}
