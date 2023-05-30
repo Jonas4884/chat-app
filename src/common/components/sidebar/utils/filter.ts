@@ -1,14 +1,11 @@
 import { Channel } from "@/common/types"
 
-type ChannelList = {
-    data : Channel[]
-}
 
 export  const filter = {
-    getPublicChannel : ({data}:ChannelList)=>{    
+    getPublicChannel : (data : Channel[])=>{    
         return data.filter((x)=>x.type=='public')
      },
-     getPrivateChannel : ({data}:ChannelList)=>{    
+     getPrivateChannel : (data:Channel[])=>{    
          return data.filter((x)=>x.type=='private')
       }
  }
