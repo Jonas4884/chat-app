@@ -16,7 +16,7 @@ export type MainLayoutProps = PropsWithChildren< {
 
 export const MainLayout = ({MainPanel,LeftPanel,RightPanel}: MainLayoutProps) => {
   return (
-    <Container className="main__layout mx-0 w-100">
+    <Container className="main__layout mx-0">
       <Row>
       <Col> {
           LeftPanel

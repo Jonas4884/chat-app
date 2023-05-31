@@ -75,8 +75,7 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
     const getMessagebyId = () => {
         MessageProvider.getMessageByChannelId(channelId).then((response)=>{        
           setMessage(response.data.messages);          
-        });
-                   
+        });             
     };
    
     getMessagebyId()
@@ -85,7 +84,6 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
     <div className="chat mx-0">
       <div className="d-flex justify-content-center mr-3">
         <div >
-          <div>
             <div
               className="d-flex justify-content-between align-items-center p-3 chat-box__back"
               style={{ borderTop: "4px solid #ffa900" }}
@@ -113,9 +111,9 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
                 />
               </div>
             </div>
-
-            <MDBCardBody className="chat-area__message">
-             {
+            <MDBCardBody style={{height:"350px"}}>
+              <div className="h-100 overflow-auto chat-area__message">
+              {
               typeof message !== "undefined" ?
                message.map((key, value) => {
                   return (
@@ -145,9 +143,10 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
                 : <p>NO correspondant Chat</p>
               }
               
+              </div>
+             
 
             </MDBCardBody>
-
             <MDBCardFooter className="text-muted d-flex justify-content-start align-items-center p-3">
               <MDBInputGroup className="mb-0">
 
@@ -163,7 +162,6 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
             </MDBCardFooter>
           </div>
         </div>
-      </div>
-    </div>
+</div>
   );
 }
