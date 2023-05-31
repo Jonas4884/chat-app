@@ -26,9 +26,9 @@ export const SideBar =({status} : SideBarProps)=>{
         return(
             <>
                 
-                <DropdownArea type="public" data={filter.getPublicChannel(data)} status={status}/>
-                <DropdownArea type="private" data={filter.getPrivateChannel(data) } status={status}/>
-                <DropdownArea type="message" data={data} status={status}/>
+                <DropdownArea type="public" redirect="channel" data={filter.getPublicChannel(data)} status={status}/>
+                <DropdownArea type="private" redirect="channel" data={filter.getPrivateChannel(data) } status={status}/>
+                <DropdownArea type="message" redirect="message" data={data} status={status}/>
     
             </>
         )

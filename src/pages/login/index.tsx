@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useGlobalStore } from "@/userContext";
 import { authProvider } from "@/providers/auth-provider";
+import { Button } from "react-bootstrap";
 
 
 
@@ -55,10 +56,11 @@ const SignInPage = () => {
                 
                                             <Input label='Email' name='email'  />
                                             <Input label='Password' name='password'  />
-                                            <button type='submit'>Login</button>
+                                            <Button  variant="succes"  type='submit'>Login</Button>
                                         </form>
-                                        <button  className="btn btn-light" onClick={()=>{push("/sign-up")}}>
-                                          </button>
+                                        <Button variant="outline-succes"  className="btn btn-light" onClick={()=>{push("/sign-up")}}>
+                                          Sign-up
+                                          </Button>
                                           
 
                                     </div>

@@ -6,8 +6,9 @@ type SideBarProps = {
   type: string;
   status: string;
   data?: Channel[];
+  redirect?: string
 };
-export const DropdownArea = ({ type, data, status }: SideBarProps) => {
+export const DropdownArea = ({ type, data, status,redirect }: SideBarProps) => {
   const route = useRouter();
   return (
     <>
@@ -20,7 +21,7 @@ export const DropdownArea = ({ type, data, status }: SideBarProps) => {
               {data.map((key, value) => {
                 return (
                   <Dropdown.Item key={key.id} color={"default"}>
-                    <Link onClick={() => route.push(`/${type}/${key.id}`)}>
+                    <Link onClick={() => route.push(`/${redirect}/${key.id}`)}>
                       {key.name}
                     </Link>
                   </Dropdown.Item>

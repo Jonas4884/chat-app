@@ -3,7 +3,7 @@ import { ChannelInfo } from "@/common/components/banner";
 
 import AppBar from "@/common/components/channel/AppBar";
 import { ChannelListContainer } from "@/common/components/channel/ChannelList";
-import { MainChannel } from "@/common/components/channel/MainChanne";
+import { MainChannel } from "@/common/components/channel/MainChannel";
 
 import { channelProvider } from "@/providers";
 import { useEffect, useState } from "react";
