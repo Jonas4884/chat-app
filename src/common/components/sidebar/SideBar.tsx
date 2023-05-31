@@ -15,7 +15,6 @@ export const SideBar =({status} : SideBarProps)=>{
     useEffect(()=>{
         const getAllChannel = ()=>{
            channelProvider.getAllChannel().then((response)=>{
-            console.log(user.user?.id);
                 setData(response.data.channels)            
             });
             //TODO: get user Id by Zustand

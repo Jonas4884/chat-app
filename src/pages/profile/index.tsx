@@ -8,7 +8,6 @@ export default function PersonalProfile() {
       const user = useGlobalStore()
 
       const LoggedUser = user.user;
-      console.log(LoggedUser);
       
   return (
     <section className="vh-100" style={{ backgroundColor: '#f4f5f7' }}>
@@ -21,8 +20,8 @@ export default function PersonalProfile() {
                   style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
                   <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                     alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />
-                  <MDBTypography tag="h5">{LoggedUser?.name}</MDBTypography>
-                  <MDBCardText>Student</MDBCardText>
+                  <MDBTypography className="text-muted" tag="h5">{LoggedUser?.name}</MDBTypography>
+                  <MDBCardText className="text-muted">Student</MDBCardText>
                   <MDBIcon far icon="edit mb-5" />
                 </MDBCol>
                 <MDBCol md="8">

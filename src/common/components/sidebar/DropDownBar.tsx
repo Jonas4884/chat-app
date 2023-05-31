@@ -20,7 +20,7 @@ export const DropdownArea = ({ type, data, status }: SideBarProps) => {
               {data.map((key, value) => {
                 return (
                   <Dropdown.Item key={key.id} color={"default"}>
-                    <Link onClick={() => route.push(`/channel/${key.id}`)}>
+                    <Link onClick={() => route.push(`/${type}/${key.id}`)}>
                       {key.name}
                     </Link>
                   </Dropdown.Item>

@@ -3,9 +3,11 @@ import { ChannelInfo } from "@/common/components/banner";
 
 import AppBar from "@/common/components/channel/AppBar";
 import { ChannelListContainer } from "@/common/components/channel/ChannelList";
+import { MainChannel } from "@/common/components/channel/MainChanne";
 
 import { channelProvider } from "@/providers";
 import { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 
 
 const ChatRoom = () => {
@@ -22,8 +24,17 @@ const ChatRoom = () => {
     <>
         <AppBar name="john" />
     <Layout>
-      
-        <MainLayout data={data} LeftPanel={<ChannelListContainer status="channel"/>} RightPanel={<ChannelInfo/>} MainPanel={<ChatBox/>}/>
+    <Container className="main__layout mx-0">
+      <Row>
+      <Col> 
+      <ChannelListContainer status="channel"/>
+        </Col>
+        <Col >
+        <MainChannel/>
+        </Col>
+        
+      </Row>
+    </Container>
     </Layout>
     </>
   

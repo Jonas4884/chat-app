@@ -13,6 +13,7 @@ import { useGlobalStore } from "@/userContext";
 import { useRouter } from "next/router";
 import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "../Input";
+import { type } from "os";
 
 type ChatBoxProps = {
   data?: RestChatMessage[];
@@ -41,7 +42,7 @@ const MessagePosition = (data: RestChatMessage) => {
   }`;
 };
 
-export const ChatBox = ({ data }: ChatBoxProps) => {
+export const ChatBox = (type) => {
   const route = useRouter();
   const channelId = Number(route.query.id);
   const [message, setMessage] = useState<RestChatMessage[]>([]);
@@ -73,9 +74,10 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
   });
   useEffect(() => {
     const getMessagebyId = () => {
-      MessageProvider.getMessageByChannelId(channelId).then((response) => {
-        setMessage(response.data.messages);
-      });
+      if (type)
+        MessageProvider.getMessageByChannelId(channelId).then((response) => {
+          setMessage(response.data.messages);
+        });
     };
 
     getMessagebyId();
@@ -133,7 +135,7 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
                   );
                 })
               ) : (
-                <p>NO correspondant Chat</p>
+                <p className="text-white">No correspondant Chat</p>
               )}
             </div>
           </MDBCardBody>

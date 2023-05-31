@@ -21,9 +21,10 @@ const AppBar = ({name}: userNameType) => {
     <nav className="navbar navbar-light bg-light">
   <div className="container-fluid">
     <a className="navbar-brand">Sleek</a>
-    <button type="button" className="btn btn-light">
-      <img src="https://img.freepik.com/free-icon/logout_318-521974.jpg" width={"30px"} alt="" />
-    </button>
+    <div className="" >
+    <img src="https://th.bing.com/th/id/R.35580302404100d3b89672aadd7aa0d7?rik=btmccSR9ewgAGQ&pid=ImgRaw&r=0" width={"30px"} className='mx-3 pe-auto' alt="" onClick={()=>{redirect.push("/profile")}}/>
+      <img src="https://img.freepik.com/free-icon/logout_318-521974.jpg" width={"30px"} alt="" onClick={logOut} className='mx-4 pe-auto'/>
+    </div>
   </div>
 </nav>
 
