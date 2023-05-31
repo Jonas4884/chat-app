@@ -86,8 +86,10 @@
 html,
 body {
   max-width: 200vw;
+  width: 100vw;
  margin: 0;
  padding: 0;
+ overflow-x: hidden;
 }
 
 body {
@@ -102,11 +104,10 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
 .chat{
-  width: 100%;
 }
 .back {
   background: #171616;
-  width: 100%;
+  width: 100vw;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -197,5 +198,5 @@ div.content h3{
   width: 100%;
 }
 .chat-box__back{
-  width: 650px;
+  width: 450px;
 }

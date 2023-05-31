@@ -25,23 +25,23 @@ const DefaultChatMessage : RestChatMessage[] = [
   {
     id:1,
     content:'',
-    recepientid:1,
-    senderid:1,
-    channelid:1,
+    recepientId:1,
+    senderId:1,
+    channelId:1,
     createedAt:"now",
     sender : {
       id : 1,
       name : "john"
     }
 }]
-const MessagePosition = ({ data }: RestChat) => {
-  return `d-flex flex-row justify-content-${data.senderid !== data.sender?.id ? 'start' : 'end'}`
+const MessagePosition = (data : RestChatMessage) => {
+  return `d-flex flex-row justify-content-${data.senderId !== data.sender?.id ? 'start' : 'end'}`
 }
 
 export const ChatBox = ({ data }: ChatBoxProps) => {
   const route = useRouter();
   const channelId = Number(route.query.id)
-  const [message,setMessage]= useState<chatMessage>([])
+  const [message,setMessage]= useState<RestChatMessage[]>([])
   const form = useForm<chatMessage>({
     defaultValues: DefaultChatMessage.at(0),
     mode: 'all',
@@ -52,7 +52,8 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
     
     const messageTOSend : chatMessage = {
       content : message.content,
-      channelid : channelId
+      channelId : channelId,
+      recepientId:channelId
     }
     const userMessage = { ...messageTOSend};
     const sendMessage = async () => {
@@ -71,16 +72,11 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
     sendMessage()
   });
   useEffect(()=>{
-    const getMessagebyId = async () => {
-      try {
-        const messageData =  await MessageProvider.getMessageByChannelId(channelId);
-        setMessage(messageData.data.messages)      
-      } catch (error) {
-        console.log(error);
-        
-        alert("error occurs on fetching message "+ {error})
-      }
-      
+    const getMessagebyId = () => {
+        MessageProvider.getMessageByChannelId(channelId).then((response)=>{        
+          setMessage(response.data.messages);          
+        });
+                   
     };
    
     getMessagebyId()
@@ -118,17 +114,17 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
               </div>
             </div>
 
-            <MDBCardBody>
+            <MDBCardBody className="chat-area__message">
              {
-              typeof data !== "undefined" ?
-               data.map((key, value) => {
+              typeof message !== "undefined" ?
+               message.map((key, value) => {
                   return (
                     <>
                       <div className="d-flex justify-content-between" key={key.id}>
                         <p className="small mb-1">{key.sender?.name}</p>
                         <p className="small mb-1 text-muted">23 Jan 2:00 pm</p>
                       </div>
-                      <div className={MessagePosition(data)}>
+                      <div className={MessagePosition(key)}>
                         <img
                           src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
                           alt="avatar 1"

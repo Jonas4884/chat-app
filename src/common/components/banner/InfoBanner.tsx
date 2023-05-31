@@ -9,7 +9,7 @@ type ChannelInfoProps = {
 export const ChannelInfo =({id}: ChannelInfoProps)=> {
   const route = useRouter()
   return (
-    <div className="" style={{ backgroundColor: '#eee' }}>
+    <div className="w-100" style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="container py-5 h-100">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol >
