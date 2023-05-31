@@ -79,5 +79,12 @@ body{
   margin: 0;
   background-color: #151414d6;
 }
+.banner-card{
+  border-radius: 50px;
+background: #322f2f;
+box-shadow:  20px 20px 60px #2b2828,
+             -20px -20px 60px #3a3636;
+}
+
 
 

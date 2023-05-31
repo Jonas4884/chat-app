@@ -16,21 +16,20 @@ const AppBar = ({name}: userNameType) => {
      redirect.push("/login")
     }
   return (
-    <Navbar>
-      <Container>
-        <Navbar.Brand href="#home" className='text-white'>SLACK</Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-start text-white">
-          <Navbar.Text  className='text-white'>
-            Signed in as: <a href=""  className='text-white'>{name}</a>
-            <Button>
-            <img src="https://cdn.onlinewebfonts.com/svg/img_87594.png" alt="" width={50} height={50} color='white'  className='bg-white rounded mx-4 py-2 px-2' onClick={()=>logOut()} />
-            </Button>   
-            
-          </Navbar.Text>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <>
+    <div className='my-4'>
+    <nav className="navbar navbar-light bg-light">
+  <div className="container-fluid">
+    <a className="navbar-brand">Sleek</a>
+    <button type="button" className="btn btn-light">
+      <img src="https://img.freepik.com/free-icon/logout_318-521974.jpg" width={"30px"} alt="" />
+    </button>
+  </div>
+</nav>
+
+    </div>
+    
+  </>
   );
 }
 
