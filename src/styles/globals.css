@@ -76,6 +76,8 @@
 }
 body{
   overflow-y: hidden;
+  margin: 0;
+  background-color: #151414d6;
 }
 
 
