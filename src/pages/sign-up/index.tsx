@@ -1,6 +1,7 @@
 import { Input, Layout } from '@/common/components';
 import { CreateUser } from '@/common/types';
 import { cache } from '@/common/utils';
+import { authProvider } from '@/providers';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -31,7 +32,8 @@ const SignInPage = () => {
         const user = { ...createUser };
         delete user.confirmPassword;
         cache.user(user);
-        push('/channel');
+        authProvider.signUp(user)
+        push('/login');
     });
 
     return (
@@ -48,14 +50,15 @@ const SignInPage = () => {
 
                                                 <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
                                                 <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
-                                                    <Input label='Username' name='userName' />
-                                                    <Input label='Email' name='email' />
-                                                    <Input label='Password' name='password' />
+                                                    <Input label='Username' name='name' validate={passwordConfirmValidator} />
+                                                    <Input label='Email' name='email' validate={passwordConfirmValidator} />
+                                                    <Input label='Password' name='password' validate={passwordConfirmValidator} />
                                                     <Input
                                                         label='Confirm password'
                                                         name='confirmPassword'
                                                         validate={passwordConfirmValidator}
                                                     />
+                                                    <button type='submit'>Sign up</button>
 
                                                 </form>
 

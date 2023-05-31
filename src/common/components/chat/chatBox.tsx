@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBContainer,
   MDBCardBody,
@@ -7,106 +7,116 @@ import {
   MDBCardFooter,
   MDBInputGroup,
 } from "mdb-react-ui-kit";
-import { chatMessage, RestChatMessage} from "@/common/types";
+import { chatMessage, RestChatMessage } from "@/common/types";
 import { MessageProvider, authProvider } from "@/providers";
 import { useGlobalStore } from "@/userContext";
 import { useRouter } from "next/router";
 import { FormProvider, useForm } from "react-hook-form";
-import {  Input } from "../Input";
+import { Input } from "../Input";
+import { type } from "os";
 
 type ChatBoxProps = {
-  data?: RestChatMessage[]
-}
+  data?: RestChatMessage[];
+};
 type RestChat = {
-  data: RestChatMessage
-}
+  data: RestChatMessage;
+};
 
-const DefaultChatMessage : RestChatMessage[] = [
+const DefaultChatMessage: RestChatMessage[] = [
   {
-    id:1,
-    content:'',
-    recepientid:1,
-    senderid:1,
-    channelid:1,
-    createedAt:"now",
-    sender : {
-      id : 1,
-      name : "john"
-    }
-}]
-const MessagePosition = ({ data }: RestChat) => {
-  return `d-flex flex-row justify-content-${data.senderid !== data.sender?.id ? 'start' : 'end'}`
-}
+    id: 1,
+    content: "",
+    recepientId: 1,
+    senderId: 1,
+    channelId: 1,
+    createedAt: "now",
+    sender: {
+      id: 1,
+      name: "john",
+    },
+  },
+];
+const MessagePosition = (data: RestChatMessage) => {
+  return `d-flex flex-row justify-content-${
+    data.senderId !== data.sender?.id ? "start" : "end"
+  }`;
+};
 
-export const ChatBox = ({ data }: ChatBoxProps) => {
+export const ChatBox = (type) => {
   const route = useRouter();
-  const channelId = Number(route.query.id)
+  const channelId = Number(route.query.id);
+  const [message, setMessage] = useState<RestChatMessage[]>([]);
   const form = useForm<chatMessage>({
     defaultValues: DefaultChatMessage.at(0),
-    mode: 'all',
-
+    mode: "all",
   });
 
   const handleSubmit = form.handleSubmit((message: chatMessage) => {
-    
-    message.channelid = channelId;
-    const userMessage = { ...message};
+    const messageTOSend: chatMessage = {
+      content: message.content,
+      channelId: channelId,
+      recepientId: channelId,
+    };
+    const userMessage = { ...messageTOSend };
     const sendMessage = async () => {
       try {
+        console.log(userMessage);
+
         await MessageProvider.SendMessage(userMessage);
       } catch (error) {
         console.log(error);
-        
-        alert("error occurs on sending message "+ {error})
-      }
-      
-    };
-    sendMessage()
-  });
-  return (
-    <div className="chat">
-      <div className="d-flex justify-content-center">
-        <div >
-          <div>
-            <div
-              className="d-flex justify-content-between align-items-center p-3 chat-box__back"
-              style={{ borderTop: "4px solid #ffa900" }}
-            >
-              <h5 className="mb-0 text-white">Chat messages 2</h5>
-              <div className="d-flex flex-row align-items-center">
-                <span className="badge bg-warning me-3">20</span>
-                <MDBIcon
-                  fas
-                  icon="minus"
-                  size="xs"
-                  className="me-3 text-muted"
-                />
-                <MDBIcon
-                  fas
-                  icon="comments"
-                  size="xs"
-                  className="me-3 text-muted"
-                />
-                <MDBIcon
-                  fas
-                  icon="times"
-                  size="xs"
-                  className="me-3 text-muted"
-                />
-              </div>
-            </div>
 
-            <MDBCardBody>
-             {
-              typeof data !== "undefined" ?
-               data.map((key, value) => {
+        alert("error occurs on sending message " + { error });
+      }
+    };
+
+    sendMessage();
+  });
+  useEffect(() => {
+    const getMessagebyId = () => {
+      if (type)
+        MessageProvider.getMessageByChannelId(channelId).then((response) => {
+          setMessage(response.data.messages);
+        });
+    };
+
+    getMessagebyId();
+  }, [message]);
+  return (
+    <div className="chat mx-0">
+      <div className="d-flex justify-content-center mr-3">
+        <div>
+          <div
+            className="d-flex justify-content-between align-items-center p-3 chat-box__back"
+            style={{ borderTop: "4px solid #ffa900" }}
+          >
+            <h5 className="mb-0 text-white">Chat messages</h5>
+            <div className="d-flex flex-row align-items-center">
+              <span className="badge bg-warning me-3">20</span>
+              <MDBIcon fas icon="minus" size="xs" className="me-3 text-muted" />
+              <MDBIcon
+                fas
+                icon="comments"
+                size="xs"
+                className="me-3 text-muted"
+              />
+              <MDBIcon fas icon="times" size="xs" className="me-3 text-muted" />
+            </div>
+          </div>
+          <MDBCardBody style={{ height: "350px" }}>
+            <div className="h-100 overflow-auto chat-area__message">
+              {typeof message !== "undefined" ? (
+                message.map((key, value) => {
                   return (
                     <>
-                      <div className="d-flex justify-content-between" key={key.id}>
+                      <div
+                        className="d-flex justify-content-between"
+                        key={key.id}
+                      >
                         <p className="small mb-1">{key.sender?.name}</p>
                         <p className="small mb-1 text-muted">23 Jan 2:00 pm</p>
                       </div>
-                      <div className="d-flex flex-row justify-content-start">
+                      <div className={MessagePosition(key)}>
                         <img
                           src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
                           alt="avatar 1"
@@ -122,30 +132,31 @@ export const ChatBox = ({ data }: ChatBoxProps) => {
                         </div>
                       </div>
                     </>
-                  )
+                  );
                 })
-                : <p>NO correspondant Chat</p>
-              }
-              
-
-            </MDBCardBody>
-
-            <MDBCardFooter className="text-muted d-flex justify-content-start align-items-center p-3">
-              <MDBInputGroup className="mb-0">
-
-                <FormProvider {...form}>
-                  <form action="" onSubmit={handleSubmit}>
-                  <Input name="message" label="messsage"/>
-                  <MDBBtn color="warning" style={{ paddingTop: ".55rem" }} type="submit">
-                  Button
-                </MDBBtn>
-                  </form>
-                </FormProvider>                
-              </MDBInputGroup>
-            </MDBCardFooter>
-          </div>
+              ) : (
+                <p className="text-white">No correspondant Chat</p>
+              )}
+            </div>
+          </MDBCardBody>
+          <MDBCardFooter className="text-muted d-flex justify-content-start align-items-center p-3">
+            <MDBInputGroup className="mb-0">
+              <FormProvider {...form}>
+                <form action="" onSubmit={handleSubmit} className="d-md-flex">
+                  <div className="d-grid gap-2 col-8 m-0">
+                    <Input name="content" label="messsage" />
+                  </div>
+                  <div className="d-grid mx-4 gap-2 col-4 m-0 h-50">
+                    <button type="submit" className="btn btn-primary">
+                      Send
+                    </button>
+                  </div>
+                </form>
+              </FormProvider>
+            </MDBInputGroup>
+          </MDBCardFooter>
         </div>
       </div>
     </div>
   );
-}
+};

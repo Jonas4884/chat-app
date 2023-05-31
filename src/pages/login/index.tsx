@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useGlobalStore } from "@/userContext";
 import { authProvider } from "@/providers/auth-provider";
+import { Button } from "react-bootstrap";
 
 
 
@@ -14,7 +15,6 @@ const userSignInDefaultValues: LoginUser = {
   password: '',
 };
 
-// TODO : You can use useSWRStation
 const SignInPage = () => {
   const form = useForm<CreateUser>({
     defaultValues: userSignInDefaultValues,
@@ -41,27 +41,44 @@ const SignInPage = () => {
 
   return (
     <Layout>
-      <FormProvider {...form}>
-        <div className="back">
-          <div className="div-center">
-            <div className="content">
-              <h3>Login for SLACK</h3>
-              <hr />
-              <form onSubmit={handleSubmit}>
-                <div className="mt-4">
-                  <Input label='Email' name='email' />
-                  <Input label='Password' name='password' />
+    <FormProvider {...form}>
+        <section className="vh-100">
+            <div className="container h-100">
+                <div className="row d-flex justify-content-center align-items-center h-100">
+                    <div className="col-lg-12 col-xl-11">
+                        <div className="card text-black">
+                            <div className="card-body p-md-5">
+                                <div className="row justify-content-center">
+                                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                        <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login to Sleek</p>
+                                        <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
+                
+                                            <Input label='Email' name='email'  />
+                                            <Input label='Password' name='password'  />
+                                            <Button  variant="succes"  type='submit'>Login</Button>
+                                        </form>
+                                        <Button variant="outline-succes"  className="btn btn-light" onClick={()=>{push("/sign-up")}}>
+                                          Sign-up
+                                          </Button>
+                                          
+
+                                    </div>
+                                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                                            className="img-fluid" alt="Sample image" />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" className="btn btn-outline-primary form-login__label" >Login</button>
-                <hr />
-                <button type="button" className="btn btn-link form-login__label">Signup</button>
-                <button type="button" className="btn btn-link">Reset Password</button>
-              </form>
             </div>
-          </div>
-        </div>
-      </FormProvider>
-    </Layout>
+        </section>
+    </FormProvider>
+</Layout>
   )
 }
 

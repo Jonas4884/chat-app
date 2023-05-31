@@ -16,20 +16,19 @@ export type MainLayoutProps = PropsWithChildren< {
 
 export const MainLayout = ({MainPanel,LeftPanel,RightPanel}: MainLayoutProps) => {
   return (
-    <Container>
+    <Container className="main__layout mx-0">
       <Row>
       <Col> {
           LeftPanel
       }
        
-          
         </Col>
-        <Col  xs={6}>
+        <Col >
             {
               MainPanel
             }
         </Col>
-        <Col>
+        <Col >
           {RightPanel}
         </Col>
       </Row>

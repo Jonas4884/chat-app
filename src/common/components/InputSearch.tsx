@@ -1,35 +1,41 @@
-import { Controller, useFormContext} from 'react-hook-form';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import { User } from '../types';
-import { useState } from 'react';
+import Select, { MultiValue } from "react-select";
+import { useForm, Controller, SubmitHandler, useFormContext } from "react-hook-form";
+import { userProvider } from "@/providers/user-provider";
+import { useEffect, useState } from "react";
+import { User, UserforDomain } from "../types";
 
-
-const animatedComponents = makeAnimated();
-type InputWithSearchProps = {
-    value :  unknown,
-    option : unknown
+type membersType ={
+    value ?: number,
+    label?: string  
 }
-const options = [
-  { value: "blues", label: "Blues" },
-  { value: "rock", label: "Rock" },
-  { value: "jazz", label: "Jazz" },
-  { value: "orchestra", label: "Orchestra" },
-];
-
-export const InputWithSearch = ({value,option} :InputWithSearchProps)=> {
- 
-    const {
-        register,
-        formState: {errors},
-      } = useFormContext();
-     
-  return (
-    <>
+export const InputWithSearch = () => {
+  const { control, formState : errors } = useFormContext();
+  const [userData,setUserData] = useState<UserforDomain[]>(); 
+  const [selectedOption, setSelectedOption] = useState<MultiValue<membersType>>();
     
-                      <Select {...register("members")} options={options} isMulti />
-                 
-    </>
-   
+  useEffect(()=>{
+    userProvider.getUsers().then((response)=>{setUserData(response)});
+    
+  },[userData])
+  const userOption: membersType[] | undefined = userData?.map((user: UserforDomain) => ({
+    value: user.id,
+    label: user.name
+  }));
+ 
+  return (
+      <Controller
+        name="members"
+        control={control}
+        render={({ field }) => <Select 
+          {...field} 
+          options={userOption} 
+          value={selectedOption}
+          onChange={(selected) => {
+            setSelectedOption(selected);
+            field.onChange(selected?.map((option) => option.value)); // Pass the selected option values as the field value
+          }}
+          isMulti
+        />}
+      />
   );
-}
+};

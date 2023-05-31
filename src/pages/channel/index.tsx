@@ -1,19 +1,15 @@
-import { ChatBox, CreateChannel, Layout, MainLayout} from "@/common/components";
+import { ChatBox, Layout, MainLayout} from "@/common/components";
 import { ChannelInfo } from "@/common/components/banner";
 
 import AppBar from "@/common/components/channel/AppBar";
 import { ChannelListContainer } from "@/common/components/channel/ChannelList";
+import { MainChannel } from "@/common/components/channel/MainChannel";
 
-import { Channel,RestChannel } from "@/common/types";
-import { getSavedCred } from "@/common/utils";
 import { channelProvider } from "@/providers";
-import { GetServerSideProps, GetStaticProps } from "next";
 import { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 
 
-type RestChannelProps = {
-  value : RestChannel[]
-}
 const ChatRoom = () => {
   const [data,setData] = useState();
   useEffect(()=>{
@@ -28,8 +24,17 @@ const ChatRoom = () => {
     <>
         <AppBar name="john" />
     <Layout>
-      
-        <MainLayout data={data} LeftPanel={<ChannelListContainer data={data}/>} RightPanel={<ChannelInfo/>} MainPanel={<ChatBox/>}/>
+    <Container className="main__layout mx-0">
+      <Row>
+      <Col> 
+      <ChannelListContainer status="channel"/>
+        </Col>
+        <Col >
+        <MainChannel/>
+        </Col>
+        
+      </Row>
+    </Container>
     </Layout>
     </>
   
