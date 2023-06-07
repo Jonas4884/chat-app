@@ -56,7 +56,7 @@ const CreateNewChannel = () => {
                 </div>
                 <button
                   type="submit"
-                  className="btn btn-outline-primary form-login__label"
+                  className="btn btn-outline-primary form-login__label createChannelButton"
                 >
                   Add Channel
                 </button>

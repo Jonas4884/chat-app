@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import dateFormat, { masks } from "dateformat";
 import {
   MDBContainer,
   MDBCardBody,
@@ -14,6 +15,7 @@ import { useRouter } from "next/router";
 import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "../Input";
 import { type } from "os";
+import { TextArea } from "../TextArea";
 
 type ChatBoxProps = {
   data?: RestChatMessage[];
@@ -60,8 +62,6 @@ export const ChatBox = (type: any) => {
     const userMessage = { ...messageTOSend };
     const sendMessage = async () => {
       try {
-        console.log(userMessage);
-
         await MessageProvider.SendMessage(userMessage);
       } catch (error) {
         console.log(error);
@@ -98,7 +98,7 @@ export const ChatBox = (type: any) => {
                 fas
                 icon="comments"
                 size="xs"
-                className="me-3 text-muted"
+                className="me-3 text"
               />
               <MDBIcon fas icon="times" size="xs" className="me-3 text-muted" />
             </div>
@@ -113,8 +113,8 @@ export const ChatBox = (type: any) => {
                         className="d-flex justify-content-between"
                         key={key.id}
                       >
-                        <p className="small mb-1">{key.sender?.name}</p>
-                        <p className="small mb-1 text-muted">23 Jan 2:00 pm</p>
+                        <p className="small mb-1 text-white">{key.sender?.name}</p>
+                        <p className="small mb-1 text-muted">{dateFormat(key.createedAt, " mmmm dS, yyyy, h:MM TT")}</p>
                       </div>
                       <div className={MessagePosition(key)}>
                         <img
@@ -144,10 +144,10 @@ export const ChatBox = (type: any) => {
               <FormProvider {...form}>
                 <form action="" onSubmit={handleSubmit} className="d-md-flex">
                   <div className="d-grid gap-2 col-8 m-0">
-                    <Input name="content" label="messsage" />
+                   <TextArea name="content"/>
                   </div>
                   <div className="d-grid mx-4 gap-2 col-4 m-0 h-50">
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-primary sendMessageButton">
                       Send
                     </button>
                   </div>

@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 
-const ChatRoom = ({isLoggedIn} ) => {
+const ChatRoom = ( ) => {
   const [data,setData] = useState();
   useEffect(()=>{
     const getData = () => {
@@ -24,7 +24,7 @@ const ChatRoom = ({isLoggedIn} ) => {
   },[data])
   return (
     <>
-   {isLoggedIn} &&   (
+   
     <AppBar name="john" />
     <Layout>
     <Container className="main__layout mx-0">
@@ -41,28 +41,28 @@ const ChatRoom = ({isLoggedIn} ) => {
     </Layout>
    
 
-   )
+   
    </>
       )
 }
-export const getStaticProps : GetStaticProps = async (context) =>{
-  const token = getSavedCred.accessToken()
+// export const getStaticProps : GetStaticProps = async (context) =>{
+//   const token = getSavedCred.accessToken()
   
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    };
-  }
+//   if (!token) {
+//     return {
+//       redirect: {
+//         destination: '/login',
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  // Continue with rendering the protected page if logged in
-  return {
-    props: {
-      isLoggedIn : true
-    },
-  };
-}
+//   // Continue with rendering the protected page if logged in
+//   return {
+//     props: {
+//       isLoggedIn : true
+//     },
+//   };
+// }
 
 export default ChatRoom;

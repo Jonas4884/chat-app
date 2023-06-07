@@ -81,9 +81,9 @@ const SignInPage = () => {
                           Login to Sleek
                         </p>
                         <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
-                          <Input label="Email" name="email" />
-                          <Input label="Password" name="password" />
-                          <Button variant="succes" type="submit">
+                          <Input type="email" label="Email" name="email" />
+                          <Input   type="password" label="Password" name="password" />
+                          <Button variant="succes" className="loginButton" type="submit">
                             Login
                           </Button>
                         </form>

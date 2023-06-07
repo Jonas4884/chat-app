@@ -8,9 +8,6 @@ import { Input, UserProfile } from '@/common/components';
 
 
 export default function PersonalProfile() {
-      const user = useGlobalStore()
-      const router = useRouter()
-      const LoggedUser = user.user;
       
   return (
     <>

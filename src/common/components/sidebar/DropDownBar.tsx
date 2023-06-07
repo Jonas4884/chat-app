@@ -1,11 +1,11 @@
-import { Channel } from "@/common/types";
+import { Channel, User } from "@/common/types";
 import { Dropdown, Grid, Link } from "@nextui-org/react";
 import { useRouter } from "next/router";
 
 type SideBarProps = {
   type: string;
   status: string;
-  data?: Channel[];
+  data?: Channel[] | User[];
   redirect?: string
 };
 export const DropdownArea = ({ type, data, status,redirect }: SideBarProps) => {

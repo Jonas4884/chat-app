@@ -89,7 +89,7 @@ export const UserProfile = () => {
               <FormProvider {...form}>
                 <form onSubmit={handleSubmit}
                 > <div className="row mt-2">
-                <Input name="Name" label="Name" className="col-md-6" />
+                <Input type="text" name="Name" label="Name" className="col-md-6" />
               </div>
               <div className="row mt-3">
                 <Input
@@ -99,14 +99,22 @@ export const UserProfile = () => {
                   className="col-md-6"
                 />
                 <Input
-                  name="password"
+                  name="currentPassword"
                   label="password"
                   type="password"
                   className="col-md-6"
                 />
                 <Input
+                  name="newPassword"
+                  label="password"
+                  type="password"
+                  className="col-md-6"
+                />
+
+                {/* TODO: How can i get user password */}
+                <Input
                   name="confirmPassword"
-                  label="confirmPassword"
+                  label="Confirm Password"
                   type="password"
                   className="col-md-6"
                 />
@@ -114,7 +122,7 @@ export const UserProfile = () => {
               </div>
               <div className="mt-5 text-center">
                 <button
-                  className="btn btn-primary profile-button"
+                  className="btn btn-primary profile-button updateProfileButton"
                   type="submit"
                 >
                   Save Profile
