@@ -18,7 +18,7 @@ import { type } from "os";
 import { TextArea } from "../TextArea";
 
 type ChatBoxProps = {
-  data?: RestChatMessage[];
+  type : string
 };
 type RestChat = {
   data: RestChatMessage;
@@ -28,7 +28,6 @@ const DefaultChatMessage: RestChatMessage[] = [
   {
     id: 1,
     content: "",
-    recepientId: 1,
     senderId: 1,
     channelId: 1,
     createedAt: "now",
@@ -44,9 +43,11 @@ const MessagePosition = (data: RestChatMessage) => {
   }`;
 };
 
-export const ChatBox = (type: any) => {
+export const ChatBox = ({type}: ChatBoxProps) => {
   const route = useRouter();
   const channelId = Number(route.query.id);
+  const user = useGlobalStore();
+  const chatId = Number(user.user?.id)
   const [message, setMessage] = useState<RestChatMessage[]>([]);
   const form = useForm<chatMessage>({
     defaultValues: DefaultChatMessage.at(0),
@@ -57,7 +58,7 @@ export const ChatBox = (type: any) => {
     const messageTOSend: chatMessage = {
       content: message.content,
       channelId: channelId,
-      recepientId: channelId,
+      recipientId: type === "channel" ? channelId : chatId,
     };
     const userMessage = { ...messageTOSend };
     const sendMessage = async () => {
@@ -74,12 +75,18 @@ export const ChatBox = (type: any) => {
   });
   useEffect(() => {
     const getMessagebyId = () => {
-      if (type)
+      if (type == "channel"){
         MessageProvider.getMessageByChannelId(channelId).then((response) => {
           setMessage(response.data.messages);
         });
-    };
+      }
+      else{
+        MessageProvider.getMessageByUserId(chatId).then((response) => {
+          setMessage(response.data.messages); } )
+      }
+     
 
+  }
     getMessagebyId();
   }, [message]);
   return (

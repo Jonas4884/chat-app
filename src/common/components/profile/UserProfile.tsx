@@ -43,7 +43,8 @@ export const UserProfile = () => {
     const sendUserToUpdate = async () => {
       try {
         const userData = await userProvider.updateUser(createUser);
-        setUser(userData?.data.user);
+        setUser(userData?.data.user);       
+        
         router.push("/channel")
         toast(`user information updated`, {
           hideProgressBar: true,
@@ -89,7 +90,7 @@ export const UserProfile = () => {
               <FormProvider {...form}>
                 <form onSubmit={handleSubmit}
                 > <div className="row mt-2">
-                <Input type="text" name="Name" label="Name" className="col-md-6" />
+                <Input type="text" name="name" label="Name" className="col-md-6" />
               </div>
               <div className="row mt-3">
                 <Input

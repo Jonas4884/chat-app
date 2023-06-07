@@ -2,7 +2,7 @@ import { ChatUser } from "./user"
 
 export interface chatMessage {
    senderId ?: number,
-    recepientId?: number,
+   recipientId?: number,
     channelId?: number,
     content: string
 }
