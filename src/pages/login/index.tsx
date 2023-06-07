@@ -32,7 +32,7 @@ const SignInPage = () => {
       );
       if (authenticate) {
         setUser(data);
-        toast(`welcome to sleek`, { hideProgressBar: true, autoClose: 2000, type: 'success' })
+        toast(`Welcome to Sleek`, { hideProgressBar: true, autoClose: 2000, type: 'success' })
 
         push(redirection);
       } else {

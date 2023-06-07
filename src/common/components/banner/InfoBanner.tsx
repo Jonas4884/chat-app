@@ -1,7 +1,6 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
-import { AddMemberToChannel } from '../channel';
 import { useRouter } from 'next/router';
 type ChannelInfoProps = {
   id : number

@@ -1,11 +1,10 @@
 import { useFormContext } from "react-hook-form";
-import { Fragment, useState } from "react";
-import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 type InputProps = {
   label : string;
   name : string;
-  validate?: any
+  validate?: any;
+  className ?: string;
+  type?:string
 }
 
 const getInputId = (name: string) => `${name}-input`
@@ -14,7 +13,7 @@ const InputClassCheck = (isError: boolean) =>
 `shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${ 
   isError ? 'border-gray-200' : 'border-red-500'}`
 export const Input = (props: InputProps) =>{
-  const{label,name,validate} = props;
+  const{label,name,validate,className,type} = props;
   
   const {
     register,
@@ -24,10 +23,11 @@ export const Input = (props: InputProps) =>{
   
 
   return(
-    <div className="relative mb-4">
+    <div className={`relative mb-4 ${className}`}>
       <input {
         ...register(name,{validate})
       } 
+      type={type}
       className={InputClassCheck(!error)}
       placeholder={label}
       id={getInputId(name)}

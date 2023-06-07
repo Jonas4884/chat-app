@@ -5,16 +5,17 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 type InputProps = {
   label ?: string;
   name : string;
-  validate?: any
+  validate?: any;
+  className ?: string
 }
 
 const getInputId = (name: string) => `${name}-input`
 
 const InputClassCheck = (isError: boolean) => 
-`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${ 
+`shadow appearance-none borderrounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${ 
   isError ? 'border-gray-200' : 'border-red-500'}`
 export const TextArea = (props: InputProps) =>{
-  const{label,name,validate} = props;
+  const{label,className,name,validate} = props;
   
   const {
     register,
@@ -28,7 +29,7 @@ export const TextArea = (props: InputProps) =>{
       <textarea {
         ...register(name,{validate})
       } 
-      className={InputClassCheck(!error)}
+      className={`${InputClassCheck(!error)} ${className}`}
       placeholder={label}
       id={getInputId(name)}
       ></textarea>

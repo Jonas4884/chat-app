@@ -1,3 +1,4 @@
+import { User } from "@/common/types"
 import { userRequest } from "./utils"
 
 export const userProvider = {
@@ -22,5 +23,17 @@ export const userProvider = {
             } = error as any
             return  {status,data}
         }    
+    },
+    updateUser :async (user:User) => {
+        try {
+            await userRequest().put("/user",user)
+        } catch (error) {
+            console.log(error);
+
+              const {
+                response : { status,data}
+            } = error as any
+            return  {status,data}
+        }
     }
 }
