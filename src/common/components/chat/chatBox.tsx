@@ -42,7 +42,7 @@ const MessagePosition = (data: RestChatMessage) => {
   }`;
 };
 
-export const ChatBox = (type) => {
+export const ChatBox = (type: any) => {
   const route = useRouter();
   const channelId = Number(route.query.id);
   const [message, setMessage] = useState<RestChatMessage[]>([]);

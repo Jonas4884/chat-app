@@ -44,6 +44,12 @@ export const UserProfile = () => {
       try {
         const userData = await userProvider.updateUser(createUser);
         setUser(userData?.data.user);
+        router.push("/channel")
+        toast(`user information updated`, {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: "success",
+        });
       } catch (error: any) {
         setErrorMessage(error.message);
         console.log(error.message);

@@ -4,7 +4,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 import { useGlobalStore } from '@/userContext';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
-import { Input } from '@/common/components';
+import { Input, UserProfile } from '@/common/components';
 
 
 export default function PersonalProfile() {
@@ -14,6 +14,7 @@ export default function PersonalProfile() {
       
   return (
     <>
-    Hello world</>
+      <UserProfile/>
+    </>
   );
 }
