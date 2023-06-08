@@ -58,15 +58,16 @@ export const ChatBox = ({type}: ChatBoxProps) => {
     const messageTOSend: chatMessage = {
       content: message.content,
       channelId: channelId,
-      recipientId: type === "channel" ? channelId : chatId,
     };
-    const userMessage = { ...messageTOSend };
+    const messageToUser: chatMessage = {
+      content: message.content,
+      recipientId:  channelId
+    };
+    const userMessage = { ... type !== "message"? messageTOSend : messageToUser };
     const sendMessage = async () => {
       try {
         await MessageProvider.SendMessage(userMessage);
       } catch (error) {
-        console.log(error);
-
         alert("error occurs on sending message " + { error });
       }
     };
@@ -81,7 +82,7 @@ export const ChatBox = ({type}: ChatBoxProps) => {
         });
       }
       else{
-        MessageProvider.getMessageByUserId(chatId).then((response) => {
+        MessageProvider.getMessageByUserId(channelId).then((response) => {
           setMessage(response.data.messages); } )
       }
      
@@ -154,7 +155,7 @@ export const ChatBox = ({type}: ChatBoxProps) => {
                    <TextArea name="content"/>
                   </div>
                   <div className="d-grid mx-4 gap-2 col-4 m-0 h-50">
-                    <button type="submit" className="btn btn-primary sendMessageButton">
+                    <button type="submit" className="btn btn-primary sendMessageButton" onSubmit={(e)=>e.target == ""}>
                       Send
                     </button>
                   </div>

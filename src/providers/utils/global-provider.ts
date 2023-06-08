@@ -2,10 +2,11 @@ import { getSavedCred } from '@/common/utils';
 import axios from 'axios';
 import { BASE_URL } from './base';
 import { authProvider } from '../auth-provider';
-
+import { Router, useRouter } from 'next/router';
 export const userLogRequest = () => {
   const accessToken = getSavedCred.accessToken();
   if (!accessToken) {
+    
     throw new Error('No corresponsant user');
   }
   return axios.create({
@@ -17,6 +18,7 @@ export const userLogRequest = () => {
 };
 
 export const userRequest = () => {
+
   return axios.create({
     headers:{
       Authorization: `bearer ${getSavedCred.accessToken()}`

@@ -53,7 +53,6 @@ export const UserProfile = () => {
         });
       } catch (error: any) {
         setErrorMessage(error.message);
-        console.log(error.message);
 
         toast(`${error.message},something wrong on updating you information`, {
           hideProgressBar: true,
