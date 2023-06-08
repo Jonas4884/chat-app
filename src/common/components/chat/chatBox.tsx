@@ -155,7 +155,7 @@ export const ChatBox = ({type}: ChatBoxProps) => {
                    <TextArea name="content"/>
                   </div>
                   <div className="d-grid mx-4 gap-2 col-4 m-0 h-50">
-                    <button type="submit" className="btn btn-primary sendMessageButton" onSubmit={(e)=>e.target == ""}>
+                    <button type="submit" className="btn btn-primary sendMessageButton" >
                       Send
                     </button>
                   </div>

@@ -5,38 +5,36 @@ import { filter } from "./utils/filter"
 import { DropdownArea } from "./DropDownBar"
 import { useGlobalStore } from "@/userContext"
 import { userProvider } from "@/providers/user-provider"
+import useSWR from "swr"
 type SideBarProps = {
     status : string
 }
 export const SideBar =({status} : SideBarProps)=>{
 
-    const [data,setData]=useState<Channel[]>([]);
+   
     const [userChat,setUserChat]= useState<User[]>()
-    const [message,setMessage] = useState<chatMessage>()
+    const [channelData,setChannelData] = useState<Channel[]>([])
     const user  =useGlobalStore();
+    const {
+        isLoading,
+        data: users = [],
+        error: fetchUserError,
+      } = useSWR("/users", () => userProvider.getUsers());
     useEffect(()=>{
         const getAllChannel = ()=>{
-           channelProvider.getAllChannel().then((response)=>{
-                setData(response.data.channels)            
-            });
-            //TODO: get user Id by Zustand
-        } 
-        getAllChannel()
-        const getAllUser = ()=>{
-            userProvider.getUsers().then((response)=>{
-
-                setUserChat(response)
+        channelProvider.getAllChannel().then((response)=>{
+                setChannelData(response.data.channels)
             })
         }
-        getAllUser()
-    },[data])
+        getAllChannel()
+    },[])
 
         return(
             <>
                 
-                <DropdownArea type="public" redirect="channel" data={filter.getPublicChannel(data)} status={status}/>
-                <DropdownArea type="private" redirect="channel" data={filter.getPrivateChannel(data) } status={status}/>
-                <DropdownArea type="message" redirect="message" data={userChat} status={status}/>
+                <DropdownArea type="public" redirect="channel" data={filter.getPublicChannel(channelData)} status={status}/>
+                <DropdownArea type="private" redirect="channel" data={filter.getPrivateChannel(channelData) } status={status}/>
+                <DropdownArea type="message" redirect="message" data={users as User[]} status={status}/>
     
             </>
         )
