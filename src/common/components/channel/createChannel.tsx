@@ -51,7 +51,6 @@ const CreateNewChannel = () => {
                 <div className="mt-4">
                   <Input label="name" name="name" />
                   <Radio value="public"   />
-                  <Radio value="private"   />
                   <InputWithSearch/>
                 </div>
                 <button
