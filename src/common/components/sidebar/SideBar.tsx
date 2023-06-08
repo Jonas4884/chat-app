@@ -24,8 +24,7 @@ export const SideBar =({status} : SideBarProps)=>{
         getAllChannel()
         const getAllUser = ()=>{
             userProvider.getUsers().then((response)=>{
-              
-                
+
                 setUserChat(response)
             })
         }

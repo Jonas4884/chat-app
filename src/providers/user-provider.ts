@@ -26,7 +26,8 @@ export const userProvider = {
     },
     updateUser :async (user:User) => {
         try {
-            await userRequest().put("/user",user)
+          const res =  await userRequest().put("/user",user)
+          return res.data.user;
         } catch (error) {
             console.log(error);
 

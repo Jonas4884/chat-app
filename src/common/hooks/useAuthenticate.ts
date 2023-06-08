@@ -14,7 +14,12 @@ export const useAuthenticate = () => {
         push('/login');
       } else {
         push('/channel');
-      }}
+      }
+    } else if (pathname !== '/login' && pathname !== '/signup' && accessToken === null) {
+      push('/login');
+    } else if ((pathname === '/login' || pathname === '/signup') && accessToken !== null) {
+      push('/channel');
+    }
     const timeoutId = setTimeout(() => {
       setLoading(false);
       clearTimeout(timeoutId);

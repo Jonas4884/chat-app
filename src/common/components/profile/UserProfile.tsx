@@ -14,7 +14,7 @@ import {
 import { useGlobalStore } from "@/userContext";
 import { useRouter } from "next/router";
 import { Button } from "react-bootstrap";
-import { Input } from "@/common/components";
+import { Input, Layout } from "@/common/components";
 import { CreateUser, User } from "@/common/types";
 import { FormProvider, useForm } from "react-hook-form";
 import { userProvider } from "@/providers/user-provider";
@@ -42,15 +42,17 @@ export const UserProfile = () => {
     delete user.confirmPassword;
     const sendUserToUpdate = async () => {
       try {
-        const userData = await userProvider.updateUser(createUser);
-        setUser(userData?.data.user);       
-        
+        const userData = await userProvider.updateUser(createUser); 
         router.push("/channel")
         toast(`user information updated`, {
           hideProgressBar: true,
           autoClose: 2000,
           type: "success",
         });
+        setUser(userData);       
+        
+        console.log(userData);
+        
       } catch (error: any) {
         setErrorMessage(error.message);
 
@@ -65,7 +67,9 @@ export const UserProfile = () => {
   });
 
   return (
-    <section className="vh-100" style={{ backgroundColor: "#e0e0e0" }}>
+    <>
+     <Layout>
+     <section className="vh-100" style={{ backgroundColor: "#e0e0e0" }}>
       <div className="container rounded bg-white mt-5 mb-5 profile-card">
         <div className="row">
           <div className="col-md-3 border-right">
@@ -75,9 +79,15 @@ export const UserProfile = () => {
                 width="150px"
                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
               />
-              <span className="font-weight-bold">Edogaru</span>
+              <span className="font-weight-bold">{user.user?.name}</span>
               <span className="text-black-50">{user.user?.email}</span>
-              <span> </span>
+
+              <span> 
+                <Button onClick={()=>router.back()}>
+                  <p>
+                    Return to channel/message page</p>
+                  <p/>
+                  </Button> </span>
             </div>
           </div>
           <div className="col-md-5 border-right">
@@ -137,5 +147,9 @@ export const UserProfile = () => {
         </div>
       </div>
     </section>
+
+</Layout> 
+    </>
+    
   );
 };
