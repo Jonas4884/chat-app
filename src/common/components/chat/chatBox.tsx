@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import dateFormat, { masks } from "dateformat";
 import {
   MDBContainer,
   MDBCardBody,
@@ -14,9 +15,10 @@ import { useRouter } from "next/router";
 import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "../Input";
 import { type } from "os";
+import { TextArea } from "../TextArea";
 
 type ChatBoxProps = {
-  data?: RestChatMessage[];
+  type : string
 };
 type RestChat = {
   data: RestChatMessage;
@@ -26,7 +28,6 @@ const DefaultChatMessage: RestChatMessage[] = [
   {
     id: 1,
     content: "",
-    recepientId: 1,
     senderId: 1,
     channelId: 1,
     createedAt: "now",
@@ -42,9 +43,11 @@ const MessagePosition = (data: RestChatMessage) => {
   }`;
 };
 
-export const ChatBox = (type) => {
+export const ChatBox = ({type}: ChatBoxProps) => {
   const route = useRouter();
   const channelId = Number(route.query.id);
+  const user = useGlobalStore();
+  const chatId = Number(user.user?.id)
   const [message, setMessage] = useState<RestChatMessage[]>([]);
   const form = useForm<chatMessage>({
     defaultValues: DefaultChatMessage.at(0),
@@ -55,17 +58,16 @@ export const ChatBox = (type) => {
     const messageTOSend: chatMessage = {
       content: message.content,
       channelId: channelId,
-      recepientId: channelId,
     };
-    const userMessage = { ...messageTOSend };
+    const messageToUser: chatMessage = {
+      content: message.content,
+      recipientId:  channelId
+    };
+    const userMessage = { ... type !== "message"? messageTOSend : messageToUser };
     const sendMessage = async () => {
       try {
-        console.log(userMessage);
-
         await MessageProvider.SendMessage(userMessage);
       } catch (error) {
-        console.log(error);
-
         alert("error occurs on sending message " + { error });
       }
     };
@@ -74,12 +76,18 @@ export const ChatBox = (type) => {
   });
   useEffect(() => {
     const getMessagebyId = () => {
-      if (type)
+      if (type == "channel"){
         MessageProvider.getMessageByChannelId(channelId).then((response) => {
           setMessage(response.data.messages);
         });
-    };
+      }
+      else{
+        MessageProvider.getMessageByUserId(channelId).then((response) => {
+          setMessage(response.data.messages); } )
+      }
+     
 
+  }
     getMessagebyId();
   }, [message]);
   return (
@@ -98,7 +106,7 @@ export const ChatBox = (type) => {
                 fas
                 icon="comments"
                 size="xs"
-                className="me-3 text-muted"
+                className="me-3 text"
               />
               <MDBIcon fas icon="times" size="xs" className="me-3 text-muted" />
             </div>
@@ -113,8 +121,8 @@ export const ChatBox = (type) => {
                         className="d-flex justify-content-between"
                         key={key.id}
                       >
-                        <p className="small mb-1">{key.sender?.name}</p>
-                        <p className="small mb-1 text-muted">23 Jan 2:00 pm</p>
+                        <p className="small mb-1 text-white">{key.sender?.name}</p>
+                        <p className="small mb-1 text-muted">{dateFormat(key.createedAt, " mmmm dS, yyyy, h:MM TT")}</p>
                       </div>
                       <div className={MessagePosition(key)}>
                         <img
@@ -144,10 +152,10 @@ export const ChatBox = (type) => {
               <FormProvider {...form}>
                 <form action="" onSubmit={handleSubmit} className="d-md-flex">
                   <div className="d-grid gap-2 col-8 m-0">
-                    <Input name="content" label="messsage" />
+                   <TextArea name="content"/>
                   </div>
                   <div className="d-grid mx-4 gap-2 col-4 m-0 h-50">
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-primary sendMessageButton" >
                       Send
                     </button>
                   </div>

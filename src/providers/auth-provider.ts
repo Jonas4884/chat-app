@@ -1,4 +1,4 @@
-import { CreateUser, LoginUser, UserforDomain, UsertoREST } from "@/common/types";
+import { CreateUser, LoginUser, User, UserforDomain, UsertoREST } from "@/common/types";
 import { userRequest } from "./utils";
 import { cache, clearCredential } from "@/common/utils";
 
@@ -8,7 +8,7 @@ export const authProvider = {
         try {
             const LoginUser: UsertoREST = (await userRequest().post('/users/login', user)).data.user;
             cache.accessToken(LoginUser?.token);   
-            return {redirection: '/channel',data : LoginUser as UserforDomain,authenticate: true};
+            return {redirection: '/profile',data : LoginUser as User,authenticate: true};
         } catch (error) {
             const {
                 response : { status,data}

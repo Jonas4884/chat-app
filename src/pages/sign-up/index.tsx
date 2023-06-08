@@ -50,15 +50,16 @@ const SignInPage = () => {
 
                                                 <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
                                                 <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
-                                                    <Input label='Username' name='name' validate={passwordConfirmValidator} />
-                                                    <Input label='Email' name='email' validate={passwordConfirmValidator} />
-                                                    <Input label='Password' name='password' validate={passwordConfirmValidator} />
+                                                    <Input type='text' label='Username' name='name' validate={passwordConfirmValidator} />
+                                                    <Input type='email' label='Email' name='email' validate={passwordConfirmValidator} />
+                                                    <Input type='password' label='Password' name='password' validate={passwordConfirmValidator} />
                                                     <Input
+                                                    type='password'
                                                         label='Confirm password'
                                                         name='confirmPassword'
                                                         validate={passwordConfirmValidator}
                                                     />
-                                                    <button type='submit'>Sign up</button>
+                                                    <button type='submit' className=' registerButton'>Registrer</button>
 
                                                 </form>
 

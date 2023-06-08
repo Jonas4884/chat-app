@@ -51,12 +51,12 @@ const CreateNewChannel = () => {
                 <div className="mt-4">
                   <Input label="name" name="name" />
                   <Radio value="public"   />
-                  <Radio value="private"   />
+                  
                   <InputWithSearch/>
                 </div>
                 <button
                   type="submit"
-                  className="btn btn-outline-primary form-login__label"
+                  className="btn btn-outline-primary form-login__label createChannelButton"
                 >
                   Add Channel
                 </button>

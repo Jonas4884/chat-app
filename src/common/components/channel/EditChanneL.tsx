@@ -1,5 +1,6 @@
 import { InputWithSearch } from "@/common/components";
 import { channelProvider } from "@/providers";
+import { Radio } from "flowbite-react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -55,10 +56,12 @@ export const EditChannel = () => {
             <FormProvider {...form}>
             <form onSubmit={handleSubmit} className="my-3 pb-3">
               <InputWithSearch />
+              <Radio value="public"   />
+                  <Radio value="private"   />
             <Button variant="outline-secondary" className="my-3" onClick={() => route.back()}>
               Close
             </Button>
-            <Button type="submit" className="mx-3" variant="outline-primary">
+            <Button type="submit" className="mx-3 editChannelButton" onClick={() => route.back()} variant="outline-primary">
               Save Changes
             </Button>
             </form>
