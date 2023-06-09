@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import dateFormat, { masks } from "dateformat";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import {
   MDBContainer,
   MDBCardBody,
@@ -16,6 +18,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "../Input";
 import { type } from "os";
 import { TextArea } from "../TextArea";
+import { chatSchema } from "@/common/utils/yupSchema";
 
 type ChatBoxProps = {
   type : string
@@ -47,11 +50,11 @@ export const ChatBox = ({type}: ChatBoxProps) => {
   const route = useRouter();
   const channelId = Number(route.query.id);
   const user = useGlobalStore();
-  const chatId = Number(user.user?.id)
   const [message, setMessage] = useState<RestChatMessage[]>([]);
   const form = useForm<chatMessage>({
     defaultValues: DefaultChatMessage.at(0),
     mode: "all",
+    resolver: yupResolver(chatSchema)
   });
 
   const handleSubmit = form.handleSubmit((message: chatMessage) => {
@@ -122,7 +125,7 @@ export const ChatBox = ({type}: ChatBoxProps) => {
                         key={key.id}
                       >
                         <p className="small mb-1 text-white">{key.sender?.name}</p>
-                        <p className="small mb-1 text-muted">{dateFormat(key.createedAt, " mmmm dS, yyyy, h:MM TT")}</p>
+                        <p className="small mb-1 text-muted">{dateFormat(key.updateAt, "HH:MM")}</p>
                       </div>
                       <div className={MessagePosition(key)}>
                         <img

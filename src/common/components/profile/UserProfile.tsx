@@ -121,7 +121,7 @@ export const UserProfile = () => {
                   className="col-md-6"
                 />
 
-                {/* TODO: How can i get user password */}
+              
                 <Input
                   name="confirmPassword"
                   label="Confirm Password"

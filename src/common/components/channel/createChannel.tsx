@@ -50,7 +50,7 @@ const CreateNewChannel = () => {
               <form onSubmit={handleSubmit}>
                 <div className="mt-4">
                   <Input label="name" name="name" />
-                  <Radio value="public"   />
+                  <Radio />
                   
                   <InputWithSearch/>
                 </div>
