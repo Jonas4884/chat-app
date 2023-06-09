@@ -1,4 +1,4 @@
-import { InputWithSearch } from "@/common/components";
+import { EditChannelForm } from "@/common/components";
 import { EditChannel } from "@/common/components/channel/EditChanneL";
 import { channelProvider } from "@/providers";
 import { GetServerSideProps } from "next";

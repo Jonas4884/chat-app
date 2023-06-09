@@ -8,7 +8,7 @@ type membersType ={
     value ?: number,
     label?: string  
 }
-export const InputWithSearch = () => {
+export const EditChannelForm = () => {
   const { control, formState : errors } = useFormContext();
   const [userData,setUserData] = useState<UserforDomain[]>(); 
   const [selectedOption, setSelectedOption] = useState<MultiValue<membersType>>();
