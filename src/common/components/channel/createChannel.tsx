@@ -1,4 +1,4 @@
-import { Input, InputWithSearch, Layout } from "@/common/components";
+import { Input, EditChannelForm, Layout } from "@/common/components";
 import { CreateChannel } from "@/common/types";
 import { useRouter } from "next/router";
 import { FormProvider, useForm } from "react-hook-form";
@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { userProvider } from "@/providers/user-provider";
 import { Radio } from "./Radio";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createChannelSchema } from "@/common/utils/yupSchema";
 
 const channelDefaultValue: CreateChannel = {
   name: "",
@@ -18,6 +20,7 @@ const CreateNewChannel = () => {
   const form = useForm<CreateChannel>({
     defaultValues: channelDefaultValue,
     mode: "all",
+    resolver : yupResolver(createChannelSchema)
   });
   const { push } = useRouter();
   
@@ -50,9 +53,9 @@ const CreateNewChannel = () => {
               <form onSubmit={handleSubmit}>
                 <div className="mt-4">
                   <Input label="name" name="name" />
-                  <Radio value="public"   />
+                  <Radio />
                   
-                  <InputWithSearch/>
+                  <EditChannelForm/>
                 </div>
                 <button
                   type="submit"

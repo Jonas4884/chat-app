@@ -4,14 +4,15 @@ import { cache } from '@/common/utils';
 import { authProvider } from '@/providers';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signUpSchema } from '@/common/utils/yupSchema';
 
 const userSignUpDefaultValues: CreateUser = {
     email: '',
-    firstName: '',
-    lastName: '',
     password: '',
     userName: '',
     confirmPassword: '',
+    name: ''
 };
 
 const passwordConfirmValidator = (value: string, user: CreateUser) => {
@@ -24,6 +25,7 @@ const SignInPage = () => {
     const form = useForm<CreateUser>({
         defaultValues: userSignUpDefaultValues,
         mode: 'all',
+        resolver: yupResolver(signUpSchema)
     });
 
     const { push } = useRouter();

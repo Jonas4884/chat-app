@@ -1,7 +1,7 @@
 import { useAuthenticate } from "@/common/hooks";
 import { Input, Layout } from "@/common/components";
 import { CreateUser, LoginUser } from "@/common/types";
-import { cache } from "@/common/utils";
+import { cache, getSavedCred } from "@/common/utils";
 import { useRouter } from "next/router";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGlobalStore } from "@/userContext";
@@ -9,6 +9,11 @@ import { authProvider } from "@/providers/auth-provider";
 import { Button, Toast } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import { log } from "console";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "@/common/utils/yupSchema";
+import { GetServerSidePropsContext, GetStaticProps } from "next";
+import { basename } from "path";
+import { useEffect } from "react";
 
 const userSignInDefaultValues: LoginUser = {
   email: "",
@@ -19,6 +24,7 @@ const SignInPage = () => {
   const form = useForm<CreateUser>({
     defaultValues: userSignInDefaultValues,
     mode: "all",
+    resolver: yupResolver(loginSchema)
   });
   const { push } = useRouter();
   const { setUser, setErrorMessage } = useGlobalStore();
@@ -33,39 +39,20 @@ const SignInPage = () => {
       if (authenticate) {
         setUser(data);
         toast(`Welcome to Sleek`, { hideProgressBar: true, autoClose: 2000, type: 'success' })
-
         push(redirection);
       } else {
         setErrorMessage(data);
-        console.log(data);
-        
-        toast(`${data.message},please sign-up`, { hideProgressBar: true, autoClose: 2000, type: 'error' })
+        toast(`${data.message},try to sign up or verify your credentials`, { hideProgressBar: true, autoClose: 2000, type: 'error' })
        
       }
     };
     login();
   });
-
-  //   import { useState } from 'react'
-  // import useSWRMutation from 'swr/mutation'
-
-  // const fetcher = url => fetch(url).then(res => res.json())
-
-  // const Page = () => {
-  //   const [show, setShow] = useState(false)
-  //   // data is undefined until trigger is called
-  //   const { data: user, trigger } = useSWRMutation('/api/user', fetcher);
-
-  //   return (
-  //     <div>
-  //       <button onClick={() => {
-  //         trigger();
-  //         setShow(true);
-  //       }}>Show User</button>
-  //       {show && user ? <div>{user.name}</div> : null}
-  //     </div>
-  //   );
-  // }
+  const token = getSavedCred.accessToken()
+  useEffect(()=>{
+    token ?  window.history.back() : token
+  },[token])
+  
   return (
     <Layout>
       <FormProvider {...form}>
@@ -116,5 +103,6 @@ const SignInPage = () => {
     </Layout>
   );
 };
+
 
 export default SignInPage;

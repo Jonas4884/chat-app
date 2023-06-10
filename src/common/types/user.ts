@@ -1,7 +1,7 @@
 export interface User {
     name: string;
     
-    password: string;
+    password?: string;
     email: string;
   }
   export interface LoginUser {
@@ -13,6 +13,7 @@ export interface User {
   }
   
   export interface CreateUser extends User {
+    newPassword ?: string;
     confirmPassword?: string;
   }
   export interface UserforDomain {

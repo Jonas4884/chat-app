@@ -20,6 +20,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { userProvider } from "@/providers/user-provider";
 import { toast } from "react-toastify";
 import { TextArea } from "../TextArea";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { profileSchema } from "@/common/utils/yupSchema";
 
 export const UserProfile = () => {
   const user = useGlobalStore();
@@ -35,14 +37,20 @@ export const UserProfile = () => {
   const form = useForm<CreateUser>({
     defaultValues: defaultUser,
     mode: "all",
+    resolver: yupResolver(profileSchema)
   });
 
   const handleSubmit = form.handleSubmit((createUser: CreateUser) => {
-    const user = { ...createUser };
-    delete user.confirmPassword;
+    const NewUser : User = {
+      name : createUser.name,
+      email : createUser.email,
+      password : createUser.newPassword
+    }
+    const user = { ...NewUser };
+    
     const sendUserToUpdate = async () => {
       try {
-        const userData = await userProvider.updateUser(createUser); 
+        const userData = await userProvider.updateUser(user); 
         router.push("/channel")
         toast(`user information updated`, {
           hideProgressBar: true,
@@ -50,8 +58,6 @@ export const UserProfile = () => {
           type: "success",
         });
         setUser(userData);       
-        
-        console.log(userData);
         
       } catch (error: any) {
         setErrorMessage(error.message);
@@ -121,7 +127,7 @@ export const UserProfile = () => {
                   className="col-md-6"
                 />
 
-                {/* TODO: How can i get user password */}
+              
                 <Input
                   name="confirmPassword"
                   label="Confirm Password"

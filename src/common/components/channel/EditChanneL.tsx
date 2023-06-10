@@ -1,4 +1,4 @@
-import { InputWithSearch } from "@/common/components";
+import { EditChannelForm } from "@/common/components";
 import { channelProvider } from "@/providers";
 import { Radio } from "flowbite-react";
 import { GetServerSideProps } from "next";
@@ -55,7 +55,7 @@ export const EditChannel = () => {
           <Card.Text>
             <FormProvider {...form}>
             <form onSubmit={handleSubmit} className="my-3 pb-3">
-              <InputWithSearch />
+              <EditChannelForm />
               <Radio value="public"   />
                   <Radio value="private"   />
             <Button variant="outline-secondary" className="my-3" onClick={() => route.back()}>

@@ -45,24 +45,6 @@ const ChatRoom = ( ) => {
    </>
       )
 }
-// export const getStaticProps : GetStaticProps = async (context) =>{
-//   const token = getSavedCred.accessToken()
-  
-//   if (!token) {
-//     return {
-//       redirect: {
-//         destination: '/login',
-//         permanent: false,
-//       },
-//     };
-//   }
 
-//   // Continue with rendering the protected page if logged in
-//   return {
-//     props: {
-//       isLoggedIn : true
-//     },
-//   };
-// }
 
 export default ChatRoom;
