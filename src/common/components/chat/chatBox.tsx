@@ -59,11 +59,11 @@ export const ChatBox = ({type}: ChatBoxProps) => {
 
   const handleSubmit = form.handleSubmit((message: chatMessage) => {
     const messageTOSend: chatMessage = {
-      content: message.content,
+      content: message.message,
       channelId: channelId,
     };
     const messageToUser: chatMessage = {
-      content: message.content,
+      content: message.message,
       recipientId:  channelId
     };
     const userMessage = { ... type !== "message"? messageTOSend : messageToUser };
@@ -155,7 +155,7 @@ export const ChatBox = ({type}: ChatBoxProps) => {
               <FormProvider {...form}>
                 <form action="" onSubmit={handleSubmit} className="d-md-flex">
                   <div className="d-grid gap-2 col-8 m-0">
-                   <TextArea name="content"/>
+                   <TextArea name="message"/>
                   </div>
                   <div className="d-grid mx-4 gap-2 col-4 m-0 h-50">
                     <button type="submit" className="btn btn-primary sendMessageButton" >

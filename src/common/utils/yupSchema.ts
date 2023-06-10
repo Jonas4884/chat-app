@@ -24,5 +24,5 @@ export const profileSchema =  yup.object().shape({
 });
 
 export const createChannelSchema = yup.object().shape({
-  name: yup.string().required("cannot send empty channel name"),
+  channelName: yup.string().required("cannot send empty channel name"),
 });
